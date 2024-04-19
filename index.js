@@ -1,0 +1,11 @@
+console.log("&b[&cBal&6Addons&b]&r 1")
+import "./utils/config";
+console.log("&b[&cBal&6Addons&b]&r 2")
+import "./features/LobbySwap";
+console.log("&b[&cBal&6Addons&b]&r 3")
+import "./features/BalStatus";
+console.log("&b[&cBal&6Addons&b]&r 4")
+import "./utils/WorldLoad";
+console.log("&b[&cBal&6Addons&b]&r 5")
+import "./commands";
+ChatLib.chat("&b[&cBal&6Addons&b]&r Loaded!")

@@ -1,0 +1,20 @@
+
+["&alobby_swapper"]
+	lobby_swapper_default_swap_location = ""
+	lobby_swapper_default_location = ""
+
+["&4bal"]
+	"33%_alert_color" = "255,255,0,0"
+	bal_spawn_beacon = false
+	spawn_alert_text = ""
+	spawn_alert_color = "255,255,0,0"
+	invincibility_timer = false
+	"66%_alert_color" = "255,255,0,0"
+	"66%_hp_alert" = false
+	bal_status = false
+	timer_color = "255,255,0,0"
+	"33%_hp_alert" = false
+	spawn_alert = ""
+	"50%_alert_color" = "255,255,0,0"
+	"50%_hp_alert" = false
+

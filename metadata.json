@@ -1,0 +1,8 @@
+{
+    "name": "BalAddons",
+    "creator": "P3nguinMinecraft",
+    "description": "From Bal Farmers, to Bal Farmers",
+    "version": "1.0.0",
+    "entry": "index.js",
+    "requires": ["PogData","Vigilance"]
+}
