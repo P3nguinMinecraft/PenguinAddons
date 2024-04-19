@@ -1,4 +1,4 @@
-import "../../PogData";
+import PogObject from "../../PogData";
 
 const values = new PogObject("BalAddons", {
     balSpawning: false,

@@ -1,4 +1,4 @@
-import { values } from "./values";
+import values from "./values";
 import { getArea } from "./skyblock";
 register("WorldLoad", () => {
     setTimeout(() => {
