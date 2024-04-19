@@ -13,27 +13,23 @@
 
 ## Features
 ### Commands
-<details>
-<summary>Config GUI</summary>
--/baladdons to open GUI (doesnt work lol ill fix soon)
 
--Aliases: /ba, /bal, /balconfig
-</details>
+#### Config GUI
+- /baladdons to open GUI (doesnt work lol ill fix soon)
+- Aliases: /ba, /bal, /balconfig
 
-<details>
-    <summary>Lobby Swapping</summary>
-    /lobbyswap to quickly lobby swap using a middleman location. 
-    Aliases: /ls, /lswap, /swap, lobbyhop, /lh
-    THIS IS A CHAT MACRO
-</details>
+#### Lobby Swapping
+- /lobbyswap to quickly lobby swap using a middleman location. 
+- Aliases: /ls, /lswap, /swap, lobbyhop, /lh
+### THIS IS A CHAT MACRO
+
 
 ### Bal Farming
-<details>
-<summary>Bal Status Information</summary>
--Spawn Alert
--HP Alerts
--Death Alert
-</details>
+#### Bal Status Information
+- Spawn Alert
+- HP Alerts
+- Death Alert
+
 
 ### TBD
 - World Render to show Bal Status on the magma cube
@@ -47,6 +43,6 @@
 #### PogData: Data storage
 #### Vigilance: Config GUI
 
-### Questions, comments, concerns?
-#### Discord: penguin_minecraf#0
-#### Hypixel: /msg P3nguinMinecraft
+## Questions, comments, concerns?
+### Discord: penguin_minecraf#0
+### Hypixel: /msg P3nguinMinecraft
