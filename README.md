@@ -1,12 +1,13 @@
 # BalAddons
 ## About
-#### ChatTriggers QOL Module for Hypixel Skyblock. This is aimed towards Bal Farming, but also has some nice features that I find helpful in other areas. [Link](https://www.chattriggers.com/modules/v/BalAddons)
+#### ChatTriggers QOL Module for Hypixel Skyblock. This is aimed towards Bal Farming, but also has some nice features that I find helpful in other areas. 
+[ChatTriggers Link](https://www.chattriggers.com/modules/v/BalAddons)
 
 ## Installation
-#### This module requires ChatTriggers. Get it here: **[ChatTriggers](https://www.chattriggers.com/)**
+#### This module requires ChatTriggers. Get it here: **[ChatTriggers Mod](https://www.chattriggers.com/)**
 
-1. Ensure that you have the latest stable release for Forge 1.8.9.
-2. Launch Minecraft.
+1. Ensure that you have the latest stable release for Forge 1.8.9
+2. Launch Minecraft Forge 1.8.9
 3. Go ingame and run `/ct import BalAddons`
 4. ChatTriggers should automatically reload. If not, run `/ct load` or restart your game.
 
@@ -15,13 +16,14 @@
 <details>
 <summary>Config GUI</summary>
 -/baladdons to open GUI (doesnt work lol ill fix soon)
+
 -Aliases: /ba, /bal, /balconfig
 </details>
 
 <details>
     <summary>Lobby Swapping</summary>
     /lobbyswap to quickly lobby swap using a middleman location. 
-    Aliases: /ls, /lswap, /swap, lobbyhop, /lh. 
+    Aliases: /ls, /lswap, /swap, lobbyhop, /lh
     THIS IS A CHAT MACRO
 </details>
 
