@@ -1,7 +1,7 @@
 {
     "name": "BalAddons",
     "creator": "P3nguinMinecraft",
-    "description": "From Bal Farmers, to Bal Farmers",
+    "description": "ChatTriggers QOL Module for Hypixel Skyblock. This is aimed towards Bal Farming, but also has some nice features that I find helpful in other areas.",
     "version": "1.0.0",
     "entry": "index.js",
     "requires": ["PogData","Vigilance"]
