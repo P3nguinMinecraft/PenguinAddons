@@ -32,5 +32,9 @@ register("WorldLoad", () => {
     values.area = null;
     values.inCH = null;
     values.balSpawnOverlayToggle = false;
+    values.bal75Overlaytoggle = false;
+    values.bal50Overlaytoggle = false;
+    values.bal33OverlayToggle = false;
+    values.balDeathOverlayToggle = false;
     values.save();
 })

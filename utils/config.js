@@ -17,21 +17,29 @@ import {
         return categories.indexOf(a.name) - categories.indexOf(b.name);
     },
     getPropertyComparator: () => (a, b) => {
-        const names = ["Bal Spawn Beacon",
-        "Spawn Alert",
-        "Bal Status",
-        "Spawn Alert Text",
-        "Spawn Alert Color",
-        "Invincibility Timer",
-        "Timer Color",
-        "66% HP Alert",
-        "66% Alert Color",
-        "50% HP Alert",
-        "50% Alert Color",
-        "33% HP Alert",
-        "33% Alert Color",
-        "Lobby Swapper Default Location",
-        "Lobby Swapper Default Swap Location"];
+        const names = [
+            "Bal Spawn Beacon",
+            "Bal Status",
+            "Spawn Alert",
+            "Spawn Alert Text",
+            "Spawn Alert Color",
+            "Invincibility Timer",
+            "Timer Color",
+            "75% HP Alert",
+            "75% Alert Text",
+            "75% Alert Color",
+            "50% HP Alert",
+            "50% Alert Text",
+            "50% Alert Color",
+            "33% HP Alert",
+            "33% Alert Text",
+            "33% Alert Color",
+            "Death Alert",
+            "Death Alert Text",
+            "Death Alert Color",
+            "Lobby Swapper Default Location",
+            "Lobby Swapper Default Swap Location"
+        ];
         return names.indexOf(a.attributesExt.name) - names.indexOf(b.attributesExt.name);
     }
 })
@@ -40,10 +48,14 @@ class settings{
         this.initialize(this);
         this.addDependency("Spawn Alert Text", "Spawn Alert");
         this.addDependency("Spawn Alert Color", "Spawn Alert");
-        this.addDependency("Timer Color","Invincibility Timer");
-        this.addDependency("66% Alert Color","66% HP Alert");
+        this.addDependency("75% Alert Text","75% HP Alert");
+        this.addDependency("75% Alert Color","75% HP Alert");
+        this.addDependency("50% Alert Text","50% HP Alert");
         this.addDependency("50% Alert Color","50% HP Alert");
+        this.addDependency("33% Alert Text","33% HP Alert");
         this.addDependency("33% Alert Color","33% HP Alert");
+        this.addDependency("Death Alert Text","Death Alert");
+        this.addDependency("Death Alert Color","Death Alert");
         this.setCategoryDescription('&4Bal', 'Stuff about Bal');
     }
 
@@ -56,11 +68,11 @@ class settings{
 
     @SwitchProperty({
         name: "Bal Status",
-        description: "Tells you about Bal when in the Crystal Hollows, like if he is spawning, alive (with HP), dead, or unlocated.",
+        description: "Tells you about &4Bal &rwhen in the &aCrystal Hollows&r, like if he is spawning, alive (with HP), dead, or unlocated.",
         category: "&4Bal"
     })
 
-    boolBalHUD = false;
+    boolBalStatus = false;
     
     @SwitchProperty({
         name: "Spawn Alert",
@@ -73,7 +85,7 @@ class settings{
         name: "Spawn Alert Text",
         category: "&4Bal"
     })
-    txtBalSpawn = "";
+    txtBalSpawn = "Bal Spawning";
 
     @ColorProperty({
         name: "Spawn Alert Color",
@@ -88,24 +100,24 @@ class settings{
     })
     boolBalTimer = false;
 
-    @ColorProperty({
-        name: "Timer Color",
-        category: "&4Bal"
-    })
-    colorBalTimer = Color.RED;
-
     @SwitchProperty({
-        name: "66% HP Alert",
-        description: "Alert when &4Bal &rhits &c66% HP (166)",
+        name: "75% HP Alert",
+        description: "Alert when &4Bal &rhits &c75% HP (187)",
         category: "&4Bal"
     })
-    boolBal66 = false;
+    boolBal75 = false;
+
+    @TextProperty({
+        name: "75 Alert Text",
+        category: "&4Bal"
+    })
+    txtBal75 = "75% HP";
 
     @ColorProperty({
-        name: "66% Alert Color",
+        name: "75% Alert Color",
         category: "&4Bal"
     })
-    colorBal66 = Color.RED;
+    colorBal75 = Color.RED;
   
     @SwitchProperty({
         name: "50% HP Alert",
@@ -113,6 +125,12 @@ class settings{
         category: "&4Bal"
     })
     boolBal50 = false;
+
+    @TextProperty({
+        name: "50% Alert Text",
+        category: "&4Bal"
+    })
+    txtBal50 = "50% HP";
 
     @ColorProperty({
         name: "50% Alert Color",
@@ -127,24 +145,49 @@ class settings{
     })
     boolBal33 = false;
 
+    @TextProperty({
+        name: "33% Alert Text",
+        category: "&4Bal"
+    })
+    txtBal33 = "33% HP";
+
     @ColorProperty({
         name: "33% Alert Color",
         category: "&4Bal"
     })
     colorBal33 = Color.RED;
 
+    @SwitchProperty({
+        name: "Death Alert",
+        description: "Tells you when &4Bal &rdies.",
+        category: "&4Bal"
+    })
+    boolBalDeath = false;
+
+    @TextProperty({
+        name: "Death Alert Text",
+        category: "&4Bal"
+    })
+    txtBalDeath = "Bal Died";
+
+    @ColorProperty({
+        name: "Death Alert Color",
+        category: "&4Bal"
+    })
+    colorBalDeath = Color.RED;
+
     @TextProperty({
         name: "Lobby Swapper Default Location",
         description: "&4There must be a value if you want to use /lobbyswap without parameters. &r&9Example: &r&7Swapping &bcrystal hollows &r&7lobby, then input &a&o'ch', 'crystal', &r&7or &a&o'hollows'. &r&cLocation has to be &o/warp &r&ccompatible, &4AKA you must have the scroll unlocked.",
         category: "&aLobby Swapper"
     })
-    defaultLocation = ""
+    defaultLocation = "";
 
     @TextProperty({
         name: "Lobby Swapper Default Swap Location",
         description: "&4There must be a value if you want to use /lobbyswap without parameters. &r&9Example: &r&7Swapping &bcrystal hollows &r&7lobby, you might swap to the &bhub &r&7and then back to the &bcrystal hollows. &r&7So you would input &a&o'hub' &r&7or &a&o'village'. &r&cSwap location has to be &o/warp &r&ccompatible, &4AKA you must have the scroll unlocked.",
         category: "&aLobby Swapper"
     })
-    defaultSwap = ""
+    defaultSwap = "";
 }
 export default new settings();

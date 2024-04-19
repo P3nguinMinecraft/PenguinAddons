@@ -13,6 +13,10 @@ const values = new PogObject("BalAddons", {
     inCH: null,
     tempswap: null,
     balSpawnOverlayToggle: false,
+    bal75OverlayToggle: false,
+    bal50OverlayToggle: false,
+    bal33OverlayToggle: false,
+    balDeathOverlayToggle: false
 });
 
 export default new values;
