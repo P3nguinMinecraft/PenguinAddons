@@ -19,9 +19,9 @@
 - Aliases: /ba, /bal, /balconfig
 
 #### Lobby Swapping
+### THIS IS A CHAT MACRO
 - /lobbyswap to quickly lobby swap using a middleman location. 
 - Aliases: /ls, /lswap, /swap, lobbyhop, /lh
-### THIS IS A CHAT MACRO
 
 
 ### Bal Farming
