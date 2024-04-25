@@ -19,4 +19,4 @@ const values = new PogObject("BalAddons", {
     balDeathOverlayToggle: false
 });
 
-export default new values;
+export default values;
