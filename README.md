@@ -15,7 +15,7 @@
 ## Commands
 
 #### Config GUI
-- /baladdons to open GUI (doesnt work lol ill fix soon)
+- /baladdons to open GUI
 - Aliases: /ba, /bal, /balconfig
 
 #### Lobby Swapping
