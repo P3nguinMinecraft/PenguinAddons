@@ -108,7 +108,7 @@ class settings{
     boolBal75 = false;
 
     @TextProperty({
-        name: "75 Alert Text",
+        name: "75% Alert Text",
         category: "&4Bal"
     })
     txtBal75 = "75% HP";

@@ -1,11 +1,12 @@
 import PogObject from "../../PogData";
 
 const values = new PogObject("BalAddons", {
-    balSpawning: false,
-    balAlive: false, 
+    balStatus: null,
+    balSpawning1_5Lock: null,
     balSpawnPosX: null,
     balSpawnPosY: null,
     balSpawnPosZ: null,
+    balDeadWidth: null,
     balAlivePosX: null,
     balAlivePosY: null,
     balAlivePosZ: null,
@@ -16,7 +17,8 @@ const values = new PogObject("BalAddons", {
     bal75OverlayToggle: false,
     bal50OverlayToggle: false,
     bal33OverlayToggle: false,
-    balDeathOverlayToggle: false
+    balDeathOverlayToggle: false,
+    balStatusOverlayToggle: false
 });
 
 export default values;

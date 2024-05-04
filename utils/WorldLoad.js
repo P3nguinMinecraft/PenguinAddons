@@ -21,11 +21,12 @@ register("WorldLoad", () => {
 )
 
 register("WorldLoad", () => {
-    values.balSpawning = false
-    values.balAlive = false 
+    values.balStatus = null;
+    values.balSpawning1_5Lock = null;
     values.balSpawnPosX = null;
     values.balSpawnPosY = null;
     values.balSpawnPosZ = null;
+    values.balDeadWidth = null;
     values.balAlivePosX = null;
     values.balAlivePosY = null;
     values.balAlivePosZ = null;
@@ -36,5 +37,6 @@ register("WorldLoad", () => {
     values.bal50Overlaytoggle = false;
     values.bal33OverlayToggle = false;
     values.balDeathOverlayToggle = false;
+    values.balStatusOverlayToggle = false;
     values.save();
 })
