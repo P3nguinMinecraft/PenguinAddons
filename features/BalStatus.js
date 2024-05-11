@@ -182,20 +182,20 @@ register("tick", () => {
         values.balAliveHUDToggle = false;
         values.balDeadHUDToggle = false;
         values.save();
-        BalSpawningHUD.setString(`Bal Status: Spawning\r\nTimer: ${values.balSpawningTimerSecond} sec`).setX(5).setY(5).setColor(settings.colorBalSpawn.getRGB());
+        BalSpawningHUD.setString(`Bal Status: Spawning\r\nTimer: ${values.balSpawningTimerSecond} sec`).setX(5).setY(5).setColor(settings.colorBalHUD.getRGB());
     }
-    if (values.balStatus = "spawning"){
+    if (values.balStatus = "alive"){
         values.BalSpawningHUDToggle = false;
         values.balAliveHUDToggle = true;
         values.balDeadHUDToggle = false;
         values.save();
-        
+        BalAliveHUD.setString(`Bal Status: Alive\r\nHP Estimate: ${values.balHealth} HP`).setX(5).setY(5).setColor(settings.colorBalHUD.getRGB()); 
     }
     if (values.balStatus = "dead"){
         values.BalSpawningHUDToggle = false;
         values.balAliveHUDToggle = false;
         values.balDeadHUDToggle = true;
         values.save();
-        
+        BalSpawningHUD.setString(`Bal Status: Dead\r\nTimer: ${values.balDeadTimerSecond} sec`).setX(5).setY(5).setColor(settings.colorBalHUD.getRGB()); 
     }
 })

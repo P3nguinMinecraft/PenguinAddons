@@ -20,7 +20,9 @@ import {
         const names = [
             "Bal Spawn Beacon",
             "Bal Info HUD",
-            "Bal Status",
+            "Bal Status HUD",
+            "Bal Coordinate HUD",
+            "Bal HUD Color",
             "Spawn Alert",
             "Spawn Alert Text",
             "Spawn Alert Color",
@@ -47,8 +49,9 @@ import {
 class settings{
     constructor() {
         this.initialize(this);
-        this.addDependency("Bal Status", "Bal Info HUD");
-        this.addDependency("", "Bal Info HUD");
+        this.addDependency("Bal Status HUD", "Bal Info HUD");
+        this.addDependency("Bal Coordinate HUD", "Bal Info HUD");
+        this.addDependency("Bal HUD Color", "Bal Info HUD");
         this.addDependency("Spawn Alert Text", "Spawn Alert");
         this.addDependency("Spawn Alert Color", "Spawn Alert");
         this.addDependency("75% Alert Text","75% HP Alert");
@@ -80,18 +83,24 @@ class settings{
     boolBalHUD = false;
 
     @SwitchProperty({
-        name: "Bal Status",
+        name: "Bal Status HUD",
         description: "Tells you if &4Bal &ris spawning, alive (with HP estimates), dead, or unlocated.",
         category: "&4Bal"
     })
     boolBalStatusHUD = false;
 
     @SwitchProperty({
-        name: "Bal Coordinates",
+        name: "Bal Coordinate HUD",
         description: "Shows the coordinates of &4Bal &rwhen it is alive, spawning, or dead.",
         category: "&4Bal"
     })
     boolBalCoordHUD = false;
+
+    @ColorProperty({
+        name: "Bal HUD Color",
+        category: "&4Bal"
+    })
+    colorBalHUD = Color.RED;
     
     @SwitchProperty({
         name: "Spawn Alert",
