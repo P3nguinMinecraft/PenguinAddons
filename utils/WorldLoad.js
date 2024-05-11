@@ -27,6 +27,7 @@ register("WorldLoad", () => {
     values.balSpawnPosY = null;
     values.balSpawnPosZ = null;
     values.balDeadWidth = null;
+    values.balHealth = null;
     values.balAlivePosX = null;
     values.balAlivePosY = null;
     values.balAlivePosZ = null;
@@ -38,5 +39,11 @@ register("WorldLoad", () => {
     values.bal33OverlayToggle = false;
     values.balDeathOverlayToggle = false;
     values.balStatusOverlayToggle = false;
+    values.balSpawningTimerWorldToggle = false;
+    values.balSpawningTimerSecond = null;
+    values.balSpawningTimerTick = null;
+    values.balSpawningHUDToggle = false;
+    values.balAliveHUDToggle = false;
+    values.balDeadHUDToggle = false;
     values.save();
 })

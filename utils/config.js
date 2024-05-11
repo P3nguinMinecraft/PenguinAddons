@@ -19,6 +19,7 @@ import {
     getPropertyComparator: () => (a, b) => {
         const names = [
             "Bal Spawn Beacon",
+            "Bal Info HUD",
             "Bal Status",
             "Spawn Alert",
             "Spawn Alert Text",
@@ -46,6 +47,8 @@ import {
 class settings{
     constructor() {
         this.initialize(this);
+        this.addDependency("Bal Status", "Bal Info HUD");
+        this.addDependency("", "Bal Info HUD");
         this.addDependency("Spawn Alert Text", "Spawn Alert");
         this.addDependency("Spawn Alert Color", "Spawn Alert");
         this.addDependency("75% Alert Text","75% HP Alert");
@@ -59,6 +62,8 @@ class settings{
         this.setCategoryDescription('&4Bal', 'Stuff about Bal');
     }
 
+    // ikik i need to add screen position config but i cba rn, might make some gui edit code or be lazy and have some sliders for everything
+
     @SwitchProperty({
         name: "Bal Spawn Beacon",
         description: "Renders a beacon beam at &4Bal&r's spawn point.",
@@ -67,12 +72,26 @@ class settings{
     boolBalBeacon = false;
 
     @SwitchProperty({
-        name: "Bal Status",
-        description: "Tells you about &4Bal &rwhen in the &aCrystal Hollows&r, like if he is spawning, alive (with HP), dead, or unlocated.",
+        name: "Bal Info HUD",
+        description: "Provides useful information about &4Bal &rwhen in the &aCrystal Hollows&r, such as phase and coordinates.",
         category: "&4Bal"
     })
 
-    boolBalStatus = false;
+    boolBalHUD = false;
+
+    @SwitchProperty({
+        name: "Bal Status",
+        description: "Tells you if &4Bal &ris spawning, alive (with HP estimates), dead, or unlocated.",
+        category: "&4Bal"
+    })
+    boolBalStatusHUD = false;
+
+    @SwitchProperty({
+        name: "Bal Coordinates",
+        description: "Shows the coordinates of &4Bal &rwhen it is alive, spawning, or dead.",
+        category: "&4Bal"
+    })
+    boolBalCoordHUD = false;
     
     @SwitchProperty({
         name: "Spawn Alert",

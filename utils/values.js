@@ -7,6 +7,7 @@ const values = new PogObject("BalAddons", {
     balSpawnPosY: null,
     balSpawnPosZ: null,
     balDeadWidth: null,
+    balHealth: null,
     balAlivePosX: null,
     balAlivePosY: null,
     balAlivePosZ: null,
@@ -18,7 +19,13 @@ const values = new PogObject("BalAddons", {
     bal50OverlayToggle: false,
     bal33OverlayToggle: false,
     balDeathOverlayToggle: false,
-    balStatusOverlayToggle: false
+    balStatusOverlayToggle: false,
+    balSpawningTimerWorldToggle: false,
+    balSpawningTimerSecond: null,
+    balSpawningTimerTick: null,
+    balSpawningHUDToggle: false,
+    balAliveHUDToggle: false,
+    balDeadHUDToggle: false,
 });
 
 export default values;
