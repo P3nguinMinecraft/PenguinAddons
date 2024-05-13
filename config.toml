@@ -1,0 +1,37 @@
+
+["&alobby_swapper"]
+	lobby_swapper_default_swap_location = ""
+	lobby_swapper_default_location = ""
+
+["&4bal"]
+	death_alert_color = "255,255,0,0"
+	"33%_alert_color" = "255,255,0,0"
+	"33%_hp_alert" = false
+	50_percent_alert_text = "50% HP"
+	spawn_alert = false
+	50_percent_alert_color = "255,255,0,0"
+	33_percent_alert_text = "33% HP"
+	33_percent_alert_color = "255,255,0,0"
+	"50%_hp_alert" = false
+	"50%_alert_text" = "50% HP"
+	50_percent_hp_alert = false
+	"75%_alert_color" = "255,255,0,0"
+	death_alert = false
+	33_percent_hp_alert = false
+	75_percent_alert_color = "255,255,0,0"
+	bal_spawn_beacon = false
+	spawn_alert_text = "Bal Spawning"
+	spawn_alert_color = "255,255,0,0"
+	invincibility_timer = false
+	death_alert_text = "Bal Died"
+	75_percent_hp_alert = false
+	"75%_alert_text" = "75% HP"
+	"33%_alert_text" = "33% HP"
+	bal_coordinate_hud = false
+	bal_info_hud = false
+	bal_hud_color = "255,255,0,0"
+	"50%_alert_color" = "255,255,0,0"
+	bal_status_hud = false
+	75_percent_alert_text = "75% HP"
+	"75%_hp_alert" = false
+

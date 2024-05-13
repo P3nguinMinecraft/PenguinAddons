@@ -3,7 +3,8 @@ import { getArea } from "./skyblock";
 register("WorldLoad", () => {
     setTimeout(() => {
         values.area = getArea();
-        if (Area.includes("Crystal Hollows")){
+        values.save();
+        if (values.area.includes("Crystal Hollows")){
             values.inCH = true
             ChatLib.chat("&b[&4Bal&6Addons&b]&r You are in the &eCrystal Hollows&r. &4Bal&r features enabled.")
         }

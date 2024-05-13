@@ -1,11 +1,12 @@
-console.log("&b[&cBal&6Addons&b]&r 1")
+console.log("[BalAddons] Loading 1");
 import "./utils/config";
-console.log("&b[&cBal&6Addons&b]&r 2")
+console.log("[BalAddons] Loading 2");
 import "./features/LobbySwap";
-console.log("&b[&cBal&6Addons&b]&r 3")
+console.log("[BalAddons] Loading 3");
 import "./features/BalStatus";
-console.log("&b[&cBal&6Addons&b]&r 4")
+console.log("[BalAddons] Loading 4");
 import "./utils/WorldLoad";
-console.log("&b[&cBal&6Addons&b]&r 5")
+console.log("[BalAddons] Loading 5");
 import "./commands";
-ChatLib.chat("&b[&cBal&6Addons&b]&r Loaded!")
+ChatLib.chat("&b[&cBal&6Addons&b]&r Loaded!");
+console.log("[BalAddons] Loaded!")

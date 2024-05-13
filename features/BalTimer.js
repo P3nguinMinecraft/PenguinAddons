@@ -1,11 +1,12 @@
 import values from "../utils/values";
 
 let balSizes = [0.5, 1.0, 1.5, 2.0, 2.6, 3.1, 3.6, 4.1, 4.6, 5.1, 5.6, 6.1, 6.6, 7.1, 7.7, 8.2, 8.7, 9.2, 9.7, 10.2, 10.7, 11.2, 11.7, 12.2, 12.8, 13.3];
+let previousIndex = -1;
 
 register("tick", () => {
-    if (values.inCH = true){
+    if (values.inCH == true){
         if (values.balStatus == "spawning"){
-            if (!values.balSpawningTimerTick > 0){ //once it hits zero set bal status to alive
+            if (!(values.balSpawningTimerTick > 0)){ //once it hits zero set bal status to alive
                 values.balStatus = "alive";
             }
             if (values.balSpawningTimerTick) values.balSpawningTimerTick--;
@@ -36,7 +37,7 @@ register("tick", () => {
         
         
         if (values.balStatus == "dead"){
-            if (!values.balDeadTimerTick > 0){ //once it hits zero set bal status to spawning
+            if (!(values.balDeadTimerTick > 0)){ //once it hits zero set bal status to spawning
                 values.balStatus = "spawning";
             }
             if (values.balDeadTimerTick) values.balDeadTimerTick--;

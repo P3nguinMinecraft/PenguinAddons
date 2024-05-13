@@ -54,12 +54,12 @@ class settings{
         this.addDependency("Bal HUD Color", "Bal Info HUD");
         this.addDependency("Spawn Alert Text", "Spawn Alert");
         this.addDependency("Spawn Alert Color", "Spawn Alert");
-        this.addDependency("75% Alert Text","75% HP Alert");
-        this.addDependency("75% Alert Color","75% HP Alert");
-        this.addDependency("50% Alert Text","50% HP Alert");
-        this.addDependency("50% Alert Color","50% HP Alert");
-        this.addDependency("33% Alert Text","33% HP Alert");
-        this.addDependency("33% Alert Color","33% HP Alert");
+        this.addDependency("75 Percent Alert Text","75 Percent HP Alert");
+        this.addDependency("75 Percent Alert Color","75 Percent HP Alert");
+        this.addDependency("50 Percent Alert Text","50 Percent HP Alert");
+        this.addDependency("50 Percent Alert Color","50 Percent HP Alert");
+        this.addDependency("33 Percent Alert Text","33 Percent HP Alert");
+        this.addDependency("33 Percent Alert Color","33 Percent HP Alert");
         this.addDependency("Death Alert Text","Death Alert");
         this.addDependency("Death Alert Color","Death Alert");
         this.setCategoryDescription('&4Bal', 'Stuff about Bal');
@@ -129,58 +129,58 @@ class settings{
     boolBalTimer = false;
 
     @SwitchProperty({
-        name: "75% HP Alert",
-        description: "Alert when &4Bal &rhits &c75% HP (187)",
+        name: "75 Percent HP Alert",
+        description: "Alert when &4Bal &rhits &c75 percent HP (187)",
         category: "&4Bal"
     })
     boolBal75 = false;
 
     @TextProperty({
-        name: "75% Alert Text",
+        name: "75 Percent Alert Text",
         category: "&4Bal"
     })
     txtBal75 = "75% HP";
 
     @ColorProperty({
-        name: "75% Alert Color",
+        name: "75 Percent Alert Color",
         category: "&4Bal"
     })
     colorBal75 = Color.RED;
   
     @SwitchProperty({
-        name: "50% HP Alert",
-        description: "Alert when &4Bal &rhits &c50% HP (125)",
+        name: "50 Percent HP Alert",
+        description: "Alert when &4Bal &rhits &c50 percent HP (125)",
         category: "&4Bal"
     })
     boolBal50 = false;
 
     @TextProperty({
-        name: "50% Alert Text",
+        name: "50 Percent Alert Text",
         category: "&4Bal"
     })
     txtBal50 = "50% HP";
 
     @ColorProperty({
-        name: "50% Alert Color",
+        name: "50 Percent Alert Color",
         category: "&4Bal"
     })
     colorBal50 = Color.RED;
 
     @SwitchProperty({
-        name: "33% HP Alert",
-        description: "Alert when &4Bal &rhits &c33% HP (66)",
+        name: "33 Percent HP Alert",
+        description: "Alert when &4Bal &rhits &c33 percent HP (66)",
         category: "&4Bal"
     })
     boolBal33 = false;
 
     @TextProperty({
-        name: "33% Alert Text",
+        name: "33 Percent Alert Text",
         category: "&4Bal"
     })
     txtBal33 = "33% HP";
 
     @ColorProperty({
-        name: "33% Alert Color",
+        name: "33 Percent Alert Color",
         category: "&4Bal"
     })
     colorBal33 = Color.RED;
