@@ -6,10 +6,18 @@
 # Installation
 #### This module requires ChatTriggers. Get it here: **[ChatTriggers Mod](https://www.chattriggers.com/)**
 
+#### NOTE THAT THE MODULE HAS NOT BEEN RELEASED YET SO THIS WILL NOT WORK
 1. Ensure that you have the latest stable release for Forge 1.8.9
 2. Launch Minecraft Forge 1.8.9
 3. Go ingame and run `/ct import BalAddons`
 4. ChatTriggers should automatically reload. If not, run `/ct load` or restart your game.
+
+##### Alternate Method:
+1. Go to your .minecraft folder
+2. Navigate to config > ChatTriggers > modules
+3. Download (clone) this GitHub and unzip it
+4. Put the folder named "BalAddons" into the modules folder
+5. If the game is currently open, run `/ct load` or restart the game.
 
 # Features
 ## Commands
