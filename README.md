@@ -29,11 +29,13 @@
 - Spawn Alert
 - HP Alerts
 - Death Alert
+- HUD on Bal Status
 
 
 #### TBD
-- World Render to show Bal Status on the magma cube
-- Configurable GUI that shows Bal Status on screen
+- Configurable GUI positions
+- Beacon beam and waypoint on Bal's spawn position
+- ESP around the crystal so you do not accidentally click it
 
 # Credits
 #### Penguin (P3nguinMinecraft): Me, I made it
