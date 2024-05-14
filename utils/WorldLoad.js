@@ -4,7 +4,9 @@ register("WorldLoad", () => {
     setTimeout(() => {
         values.area = getArea();
         values.save();
-        if (values.area.includes("Crystal Hollows")){
+        console.log(values.area);
+        //if (values.area.includes("Crystal Hollows")){ //apparently area is the biomes not "Crystal Hollows"
+        if (TabList.getNames().join("").includes("Crystal Hollows")){
             values.inCH = true
             ChatLib.chat("&b[&4Bal&6Addons&b]&r You are in the &eCrystal Hollows&r. &4Bal&r features enabled.")
         }
@@ -12,6 +14,7 @@ register("WorldLoad", () => {
         values.save();
     },3000)
     if(values.tempswap){
+        console.log(`[BalAddons] Rewarping to ${values.tempswap} in 3 seconds.`);
         setTimeout(() => {
             ChatLib.command(`warp ${values.tempswap}`);
             values.tempswap = null;
@@ -49,4 +52,5 @@ register("WorldLoad", () => {
     values.balAliveHUDToggle = false;
     values.balDeadHUDToggle = false;
     values.save();
+    console.log("[BalAddons] Registered WorldLoad, variables reset");
 })
