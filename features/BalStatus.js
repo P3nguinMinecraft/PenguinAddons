@@ -68,6 +68,7 @@ register("tick", () => {
             values.balAlivePosZ = balAliveEntity.getZ();
         }
         else values.balStatus = null;
+        if (values.balSpawnPosX && values.balSpawnPosY && values.balSpawnPosZ) values.balSpawnDist = Player.asPlayerMP().distanceTo(values.balSpawnPosX, values.balSpawnPosY, values.balSpawnPosZ)
         values.save();
     }
 });
@@ -96,8 +97,9 @@ register("renderWorld", RenderWorld);
 function RenderWorld(){
     if (values.inCH == true){
         //add renders as needed
-        if (values.balSpawningTimerWorldToggle == true) Tessellator.drawString(`${balSpawningTimerValue} seconds`, values.balSpawnPosX, values.balSpawnPosY, values.balSpawnPosZ, Renderer.WHITE, true, 1.5, true)
+        if (values.balSpawningTimerWorldToggle == true) Tessellator.drawString(`${balSpawningTimerValue} seconds`, values.balSpawnPosX, values.balSpawnPosY+10, values.balSpawnPosZ, Renderer.WHITE, true, 1.5, true)
         // Tessellator.scale
+        if (values.balSpawnPosX && values.balSpawnPosY && values.balSpawnPosZ && (settings.boolBalWaypoint = true)) Tessellator.drawString(`Bal \n ${values.balSpawnDist}m`, values.balSpawnPosX, values.balSpawnPosY, values.balSpawnPosZ, Renderer.WHITE, true, 1.5, true)
     }
 }
 

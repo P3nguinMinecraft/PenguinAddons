@@ -30,6 +30,7 @@ register("WorldLoad", () => {
     values.balSpawnPosX = null;
     values.balSpawnPosY = null;
     values.balSpawnPosZ = null;
+    values.balSpawndist = null;
     values.balDeadWidth = null;
     values.balHealth = null;
     values.balAlivePosX = null;

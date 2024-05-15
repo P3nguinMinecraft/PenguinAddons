@@ -6,6 +6,7 @@ const values = new PogObject("BalAddons", {
     balSpawnPosX: null,
     balSpawnPosY: null,
     balSpawnPosZ: null,
+    balSpawnDist: null,
     balDeadWidth: null,
     balHealth: null,
     balAlivePosX: null,
