@@ -11,9 +11,9 @@ import {
     @DecimalSliderProperty, 
     Color
 } from "../../Vigilance/index";
-@Vigilant("BalAddons","&4Bal&cAddons", {
+@Vigilant("BalAddons","BalAddons", {
     getCategoryComparator: () => (a, b) => {
-        const categories = ['&4Bal','&aLobby Swapper'];
+        const categories = ['Bal','Lobby Swapper'];
         return categories.indexOf(a.name) - categories.indexOf(b.name);
     },
     getPropertyComparator: () => (a, b) => {
@@ -70,14 +70,14 @@ class settings{
     @SwitchProperty({
         name: "Bal Spawn Beacon",
         description: "Renders a beacon beam at &4Bal&r's spawn point.",
-        category: "&4Bal"
+        category: "Bal"
     })
     boolBalBeacon = false;
 
     @SwitchProperty({
         name: "Bal Info HUD",
         description: "Provides useful information about &4Bal &rwhen in the &aCrystal Hollows&r, such as phase and coordinates.",
-        category: "&4Bal"
+        category: "Bal"
     })
 
     boolBalHUD = false;
@@ -85,136 +85,136 @@ class settings{
     @SwitchProperty({
         name: "Bal Status HUD",
         description: "Tells you if &4Bal &ris spawning, alive (with HP estimates), dead, or unlocated.",
-        category: "&4Bal"
+        category: "Bal"
     })
     boolBalStatusHUD = false;
 
     @SwitchProperty({
         name: "Bal Coordinate HUD",
         description: "Shows the coordinates of &4Bal &rwhen it is alive, spawning, or dead.",
-        category: "&4Bal"
+        category: "Bal"
     })
     boolBalCoordHUD = false;
 
     @ColorProperty({
         name: "Bal HUD Color",
-        category: "&4Bal"
+        category: "Bal"
     })
     colorBalHUD = Color.RED;
     
     @SwitchProperty({
         name: "Spawn Alert",
         description: "Tells you when &4Bal &rspawns.",
-        category: "&4Bal"
+        category: "Bal"
     })
     boolBalSpawn = false;
     
     @TextProperty({
         name: "Spawn Alert Text",
-        category: "&4Bal"
+        category: "Bal"
     })
     txtBalSpawn = "Bal Spawning";
 
     @ColorProperty({
         name: "Spawn Alert Color",
-        category: "&4Bal"
+        category: "Bal"
     })
     colorBalSpawn = Color.RED;
 
     @SwitchProperty({
         name: "Invincibility Timer",
         description: "Countdown until &4Bal &rcan be damaged.",
-        category: "&4Bal"
+        category: "Bal"
     })
     boolBalTimer = false;
 
     @SwitchProperty({
         name: "75 Percent HP Alert",
         description: "Alert when &4Bal &rhits &c75 percent HP (187)",
-        category: "&4Bal"
+        category: "Bal"
     })
     boolBal75 = false;
 
     @TextProperty({
         name: "75 Percent Alert Text",
-        category: "&4Bal"
+        category: "Bal"
     })
     txtBal75 = "75% HP";
 
     @ColorProperty({
         name: "75 Percent Alert Color",
-        category: "&4Bal"
+        category: "Bal"
     })
     colorBal75 = Color.RED;
   
     @SwitchProperty({
         name: "50 Percent HP Alert",
         description: "Alert when &4Bal &rhits &c50 percent HP (125)",
-        category: "&4Bal"
+        category: "Bal"
     })
     boolBal50 = false;
 
     @TextProperty({
         name: "50 Percent Alert Text",
-        category: "&4Bal"
+        category: "Bal"
     })
     txtBal50 = "50% HP";
 
     @ColorProperty({
         name: "50 Percent Alert Color",
-        category: "&4Bal"
+        category: "Bal"
     })
     colorBal50 = Color.RED;
 
     @SwitchProperty({
         name: "33 Percent HP Alert",
         description: "Alert when &4Bal &rhits &c33 percent HP (66)",
-        category: "&4Bal"
+        category: "Bal"
     })
     boolBal33 = false;
 
     @TextProperty({
         name: "33 Percent Alert Text",
-        category: "&4Bal"
+        category: "Bal"
     })
     txtBal33 = "33% HP";
 
     @ColorProperty({
         name: "33 Percent Alert Color",
-        category: "&4Bal"
+        category: "Bal"
     })
     colorBal33 = Color.RED;
 
     @SwitchProperty({
         name: "Death Alert",
         description: "Tells you when &4Bal &rdies.",
-        category: "&4Bal"
+        category: "Bal"
     })
     boolBalDeath = false;
 
     @TextProperty({
         name: "Death Alert Text",
-        category: "&4Bal"
+        category: "Bal"
     })
     txtBalDeath = "Bal Died";
 
     @ColorProperty({
         name: "Death Alert Color",
-        category: "&4Bal"
+        category: "Bal"
     })
     colorBalDeath = Color.RED;
 
     @TextProperty({
         name: "Lobby Swapper Default Location",
         description: "&4There must be a value if you want to use /lobbyswap without parameters. &r&9Example: &r&7Swapping &bcrystal hollows &r&7lobby, then input &a&o'ch', 'crystal', &r&7or &a&o'hollows'. &r&cLocation has to be &o/warp &r&ccompatible, &4AKA you must have the scroll unlocked.",
-        category: "&aLobby Swapper"
+        category: "Lobby Swapper"
     })
     defaultLocation = "";
 
     @TextProperty({
         name: "Lobby Swapper Default Swap Location",
         description: "&4There must be a value if you want to use /lobbyswap without parameters. &r&9Example: &r&7Swapping &bcrystal hollows &r&7lobby, you might swap to the &bhub &r&7and then back to the &bcrystal hollows. &r&7So you would input &a&o'hub' &r&7or &a&o'village'. &r&cSwap location has to be &o/warp &r&ccompatible, &4AKA you must have the scroll unlocked.",
-        category: "&aLobby Swapper"
+        category: "Lobby Swapper"
     })
     defaultSwap = "";
 }
