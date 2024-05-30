@@ -5,8 +5,16 @@ import "./features/LobbySwap";
 console.log("[BalAddons] Loading 3");
 import "./features/BalStatus";
 console.log("[BalAddons] Loading 4");
-import "./utils/WorldLoad";
+import "./features/BalTimer"
 console.log("[BalAddons] Loading 5");
+import "./utils/WorldLoad";
+console.log("[BalAddons] Loading 6");
 import "./commands";
-ChatLib.chat("&b[&cBal&6Addons&b]&r Loaded!");
 console.log("[BalAddons] Loaded!")
+ChatLib.chat("&b[&cBal&6Addons&b]&r Loaded!");
+
+//register("tick", () => {
+//   World.getAllEntitiesOfType(Java.type("net.minecraft.entity.monster.EntityMagmaCube").class).forEach(cube => {
+//        if (cube.getWidth().toFixed(1) != 1.5 && cube.getWidth().toFixed(1) != 0.0) ChatLib.chat(`Bal Width: ${cube.getWidth().toFixed(1)}`)
+//    })
+//})

@@ -2,9 +2,6 @@ import values from "./values";
 import { getArea } from "./skyblock";
 register("WorldLoad", () => {
     setTimeout(() => {
-        values.area = getArea();
-        values.save();
-        console.log(values.area);
         //if (values.area.includes("Crystal Hollows")){ //apparently area is the biomes not "Crystal Hollows"
         if (TabList.getNames().join("").includes("Crystal Hollows")){
             values.inCH = true
@@ -21,8 +18,7 @@ register("WorldLoad", () => {
             values.save();
         },3000)
     }
-}
-)
+})
 
 register("WorldLoad", () => {
     values.balStatus = null;
@@ -30,7 +26,7 @@ register("WorldLoad", () => {
     values.balSpawnPosX = null;
     values.balSpawnPosY = null;
     values.balSpawnPosZ = null;
-    values.balSpawndist = null;
+    values.balSpawnDist = null;
     values.balDeadWidth = null;
     values.balHealth = null;
     values.balAlivePosX = null;
@@ -52,6 +48,7 @@ register("WorldLoad", () => {
     values.balSpawningHUDToggle = false;
     values.balAliveHUDToggle = false;
     values.balDeadHUDToggle = false;
+
     values.save();
     console.log("[BalAddons] Registered WorldLoad, variables reset");
 })

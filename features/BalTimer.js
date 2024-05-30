@@ -13,6 +13,8 @@ register("tick", () => {
             if (!values.balSpawningTimerTick || !values.balSpawningTimerSecond){ //if never defined (just started spawning) set to base, 50 seconds
                 values.balSpawningTimerTick = 1000;
                 values.balSpawningTimerSecond = (1000/20).toFixed(2);
+                values.save()
+                ChatLib.chat("timer set")
             }
             let currentIndex = balSizes.indexOf(values.balDeadWidth);
             if (currentIndex !== previousIndex){
