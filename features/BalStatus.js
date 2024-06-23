@@ -20,16 +20,14 @@ register("tick", () => {
         const balEntity = World.getAllEntitiesOfType(Java.type("net.minecraft.entity.monster.EntityMagmaCube").class).find(cube => cube.getWidth().toFixed(1) !== "1.5" && cube.getWidth().toFixed(1) !== "0.0");
         if (balEntity){
             values.balWidth = balEntity.getWidth().toFixed(1);
+            values.balFound = true;
         }
         else {
             values.balWidth = null;
+            values.balFound = false;
         }
         values.save();
-        if (values.balWidth == 13.3){
-            values.balStatus = "alive";
-            values.save();
-        }
-        if (values.balWidth !== 13.3 && values.balStatus !== "dead" && values.balStatus !== "alive"){ // not alive
+        if (values.balWidth !== 13.3 && values.balStatus !== "dead"){ // not alive
             if (values.balWidth == 1.0){
                 if (!values.balSpawning1_5Lock){
                     values.balSpawning1_5Lock = true;
@@ -40,31 +38,36 @@ register("tick", () => {
                 }
             }
             values.save();
-            if (!values.balSpawnPosX || !values.balSpawnPosY || !values.balSpawnPosZ && values.balWidth < 12.8){
-                ChatLib.chat("&b[&4Bal&6Addons&b]&r &4Bal&r &5spawn&r (dead bal) has been identified!")
+            if ((!values.balSpawnPosX || !values.balSpawnPosY || !values.balSpawnPosZ) && values.balWidth < 12.8 && values.balWidth !== null) {
+                ChatLib.chat("&b[&cBal&6Addons&b]&r &4Bal&r &5spawn&r (dead bal) has been identified!");
                 values.balSpawnPosX = balEntity.getX();
                 values.balSpawnPosY = balEntity.getY();
                 values.balSpawnPosZ = balEntity.getZ();
-                ChatLib.chat(`&b[&4Bal&6Addons&b]&r &5balPos&r set as ${values.balSpawnPosX}, ${values.balSpawnPosY}, ${values.balSpawnPosZ} `)
+                ChatLib.chat(`&b[&cBal&6Addons&b]&r &5balPos&r set as ${values.balSpawnPosX}, ${values.balSpawnPosY}, ${values.balSpawnPosZ}`);
             }
+            
             if(tempWidthComparator){
                 if(tempWidthComparator < values.balDeadWidth){ //bal size increased
                     values.balStatus = "spawning";
+                    console.log("comparator spawning")
                 }
                 else if(tempWidthComparator > values.balDeadWidth){ //bal size decreased
                     values.balStatus = "dying";
+                    console.log("comparator dying")
                 }
             }
             else tempWidthComparator = values.balDeadWidth;
         }
-        else if (values.balWidth == 13.3){
+        if (values.balWidth == 13.3){
             values.balStatus = "alive";
-            values.balAlivePosX = balAliveEntity.getX();
-            values.balAlivePosY = balAliveEntity.getY();
-            values.balAlivePosZ = balAliveEntity.getZ();
+            values.balAlivePosX = balEntity.getX();
+            values.balAlivePosY = balEntity.getY();
+            values.balAlivePosZ = balEntity.getZ();
+            console.log("width alive")
         }
-        else if(!values.balWidth && !values.balSpawning1_5Lock){
+        if(!values.balWidth && !values.balSpawning1_5Lock){
             values.balStatus = "dead";
+            console.log("entity dead")
         }
         if (values.balSpawnPosX && values.balSpawnPosY && values.balSpawnPosZ){
             values.balSpawnDist = Player.asPlayerMP().distanceTo(values.balSpawnPosX, values.balSpawnPosY, values.balSpawnPosZ).toFixed(1);
@@ -99,7 +102,8 @@ function RenderWorld(){
     if (values.inCH == true){
         //add renders as needed
         if (values.balSpawningTimerWorldToggle == true) Tessellator.drawString(`${balSpawningTimerSecond} seconds`, values.balSpawnPosX, values.balSpawnPosY+10, values.balSpawnPosZ, Renderer.WHITE, true, 1.5, true)
-        // Tessellator.scale
+        if (values.balDeadTimerWorldToggle == true) Tessellator.drawString(`${balDeadTimerSecond} seconds`, values.balSpawnPosX, values.balSpawnPosY+10, values.balSpawnPosZ, Renderer.WHITE, true, 1.5, true)
+            // Tessellator.scale
         if (values.balSpawnPosX && values.balSpawnPosY && values.balSpawnPosZ && (settings.boolBalWaypoint = true)) Tessellator.drawString(`Bal ${values.balSpawnDist}m`, values.balSpawnPosX, values.balSpawnPosY, values.balSpawnPosZ, Renderer.WHITE, true, 1.5, true)
     }
 }
@@ -112,6 +116,7 @@ register("chat", (message) => {
             BalSpawnOverlay.setString(settings.txtBalSpawn).setX(200).setY(200).setScale(3).setColor(settings.colorBalSpawn.getRGB());
             values.balSpawnOverlayToggle = true;
             values.balStatus = "spawning";
+            console.log("message spawning")
             values.balHealth = 250;
             values.save();
             setTimeout(() => {
@@ -172,6 +177,7 @@ register("chat", (message) => {
             values.balDeathOverlayToggle = true;
             values.balHealth = 0;
             values.balStatus = "dying";
+            console.log("message dying")
             values.save();
             setTimeout(() => {
                 values.balDeathOverlayToggle = false;
@@ -190,20 +196,20 @@ register("tick", () => {
         values.balAliveHUDToggle = false;
         values.balDeadHUDToggle = false;
         values.save();
-        BalSpawningHUD.setString(`Bal Status: Spawning\r\nTimer: ${values.balSpawningTimerSecond} sec`).setX(200).setY(300).setColor(settings.colorBalHUD.getRGB());
+        BalSpawningHUD.setString(`Bal Status: Spawning\nTimer: ${values.balSpawningTimerSecond} sec`).setX(200).setY(300).setColor(settings.colorBalHUD.getRGB());
     }
     if (values.balStatus == "alive"){
         values.BalSpawningHUDToggle = false;
         values.balAliveHUDToggle = true;
         values.balDeadHUDToggle = false;
         values.save();
-        BalAliveHUD.setString(`Bal Status: Alive\r\nHP Estimate: ${values.balHealth} HP`).setX(200).setY(300).setColor(settings.colorBalHUD.getRGB()); 
+        BalAliveHUD.setString(`Bal Status: Alive\nHP Estimate: ${values.balHealth} HP`).setX(200).setY(300).setColor(settings.colorBalHUD.getRGB()); 
     }
     if (values.balStatus == "dead"){
         values.BalSpawningHUDToggle = false;
         values.balAliveHUDToggle = false;
         values.balDeadHUDToggle = true;
         values.save();
-        BalSpawningHUD.setString(`Bal Status: Dead\r\nTimer: ${values.balDeadTimerSecond} sec`).setX(200).setY(300).setColor(settings.colorBalHUD.getRGB()); 
+        BalSpawningHUD.setString(`Bal Status: Dead\nTimer: ${values.balDeadTimerSecond} sec`).setX(200).setY(300).setColor(settings.colorBalHUD.getRGB()); 
     }
 })

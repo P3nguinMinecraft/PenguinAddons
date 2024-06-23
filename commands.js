@@ -24,8 +24,9 @@ register('command', (parameters) => {
             World.playSound("random.successful_hit", 10, 1)
             break;
         case "values": 
-            let output = `DEBUG VALUE DUMP \n` + 
+            let output = `&4DEBUG VALUE DUMP &r\n` + 
                 `balStatus: ${values.balStatus}, \n` +
+                `balFound: ${values.balFound}, \n` +
                 `balSpawning1_5Lock: ${values.balSpawning1_5Lock}, \n` +
                 `balSpawnPosX: ${values.balSpawnPosX}, \n` +
                 `balSpawnPosY: ${values.balSpawnPosY}, \n` +
@@ -38,6 +39,7 @@ register('command', (parameters) => {
                 `balAlivePosZ: ${values.balAlivePosZ}, \n` +
                 `area: ${values.area}, \n` +
                 `inCH: ${values.inCH}, \n` +
+                `tempswap: ${values.tempswap}, \n` +
                 `balSpawnOverlayToggle: ${values.balSpawnOverlayToggle}, \n` +
                 `bal75Overlaytoggle: ${values.bal75Overlaytoggle}, \n` +
                 `bal50Overlaytoggle: ${values.bal50Overlaytoggle}, \n` +
@@ -52,7 +54,6 @@ register('command', (parameters) => {
                 `balSpawningHUDToggle: ${values.balSpawningHUDToggle}, \n` +
                 `balAliveHUDToggle: ${values.balAliveHUDToggle}, \n` +
                 `balDeadHUDToggle: ${values.balDeadHUDToggle}`;
-            console.log(output);
             ChatLib.chat(output);
             break;
         case "version":

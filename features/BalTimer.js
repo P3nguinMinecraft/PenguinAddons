@@ -6,6 +6,7 @@ let previousIndex = -1;
 register("tick", () => {
     if (values.inCH == true){
         if (values.balStatus == "spawning"){
+            values.balSpawningTimerWorldToggle = true;
             if (!values.balSpawningTimerTick || !values.balSpawningTimerSecond){ //if never defined (just started spawning) set to base, 50 seconds
                 values.balSpawningTimerTick = 1000;
                 values.balSpawningTimerSecond = (1000/20).toFixed(2);
@@ -25,7 +26,6 @@ register("tick", () => {
                     console.log(`Current index of balSizes has changed to ${currentIndex}.`);
                     console.log(`Timer value successfully synced to ${values.balSpawningTimerTick}.`)
                 }
-                
                 previousIndex = currentIndex; 
             }
             values.save();
@@ -33,6 +33,7 @@ register("tick", () => {
         else {
                 values.balSpawningTimerTick = null;
                 values.balSpawningTimerSecond = null;
+                values.balSpawningTimerWorldToggle = false;
         }
         if (values.balSpawningTimerTick){
             values.balSpawningTimerSecond = (values.balSpawningTimerTick/20).toFixed(2);
@@ -40,6 +41,7 @@ register("tick", () => {
         
         
         if (values.balStatus == "dead"){
+            values.balDeadTimerWorldToggle = true;
             if (values.balDeadTimerTick > 0) values.balDeadTimerTick--;
             if (!values.balDeadTimerTick || !values.balDeadTimerSecond){ //if never defined (just died) set to base, 300 seconds
                 values.balDeadTimerTick = 6000;
@@ -50,6 +52,7 @@ register("tick", () => {
         else {
             values.balDeadTimerTick = null;
             values.balDeadTimerSecond = null;
+            values.balDeadTimerWorldToggle = false;
         }
 
         if (values.balDeadTimerTick){

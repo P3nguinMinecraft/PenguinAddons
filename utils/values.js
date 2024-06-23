@@ -3,6 +3,7 @@ import PogObject from "../../PogData";
 const values = new PogObject("BalAddons", {
     version: "0.0.2",
     balStatus: null,
+    balFound: null,
     balSpawning1_5Lock: null,
     balSpawnPosX: null,
     balSpawnPosY: null,
@@ -25,6 +26,7 @@ const values = new PogObject("BalAddons", {
     balSpawningTimerWorldToggle: false,
     balSpawningTimerTick: null,
     balSpawningTimerSecond: null,
+    balDeadTimerWorldToggle:false,
     balDeadTimerTick: null,
     balDeadTimerSecond: null,
     balSpawningHUDToggle: false,
