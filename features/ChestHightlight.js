@@ -29,7 +29,7 @@ function findChests(radius){
 }
 
 register("renderWorld", () => {
-    if (settings.boolChestHighlight == false) foundChests.clear();
+    if (settings.boolChestHighlight == false && foundChests.size > 0) foundChests.clear();
     foundChests.forEach(chest => {
         RenderLib.drawInnerEspBox(chest.x, chest.y, chest.z, 1, 1, 1, 0, 0, 0.5, true); // x y z r g b a phase
     });
