@@ -29,7 +29,7 @@ function findChests(radius){
 }
 
 register("renderWorld", () => {
-    if (false) foundChests.clear();
+    if (settings.boolChestHighlight == false) foundChests.clear();
     foundChests.forEach(chest => {
         RenderLib.drawInnerEspBox(chest.x, chest.y, chest.z, 1, 1, 1, 0, 0, 0.5, true); // x y z r g b a phase
     });
@@ -38,7 +38,7 @@ register("renderWorld", () => {
 register("chat", (message) => {
     if(message.removeFormatting().includes(constants.ChestFoundMessage)){
         setTimeout(() => {
-            if (true) findChests(settings.scanRadius);
+            if (settings.boolChestHighlight == true) findChests(settings.scanRadius);
         }, 50);
     }
     if(message.removeFormatting().includes(constants.ChestOpenedMessage)){
@@ -46,7 +46,7 @@ register("chat", (message) => {
             openLock = true;
             setTimeout(() => {
                 openLock = false;
-                if (true) findChests(settings.scanRadius);
+                if (settings.boolChestHighlight == true) findChests(settings.scanRadius);
             }, 500);
         }   
     }
