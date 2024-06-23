@@ -230,7 +230,7 @@ class settings{
 
     @SliderProperty({
         name: "Scan Radius",
-        description: "How far to scan for powder chests. (x blocks in each axis)",
+        description: "How far to scan for powder chests.",
         min: 0,
         max: 32,
         category: "Powder Mining"
