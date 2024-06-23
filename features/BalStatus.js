@@ -17,53 +17,58 @@ const BalDeadHUD = new Text("");
 register("tick", () => {
     if (values.inCH == true){
         //find bal
-        const balDeadEntity = World.getAllEntitiesOfType(Java.type("net.minecraft.entity.monster.EntityMagmaCube").class).find(cube => cube.getWidth().toFixed(1) !== "1.5" && cube.getWidth().toFixed(1) !== "0.0" && cube.getWidth().toFixed(1) !== "13.3");
-        const balAliveEntity = World.getAllEntitiesOfType(Java.type("net.minecraft.entity.monster.EntityMagmaCube").class).find(cube => cube.getWidth().toFixed(1) == "13.3");
-        
-        if (balDeadEntity) {
-            values.balDeadWidth = balDeadEntity.getWidth().toFixed(1);
+        const balEntity = World.getAllEntitiesOfType(Java.type("net.minecraft.entity.monster.EntityMagmaCube").class).find(cube => cube.getWidth().toFixed(1) !== "1.5" && cube.getWidth().toFixed(1) !== "0.0");
+        if (balEntity){
+            values.balWidth = balEntity.getWidth().toFixed(1);
+        }
+        else {
+            values.balWidth = null;
+        }
+        values.save();
+        if (values.balWidth == 13.3){
+            values.balStatus = "alive";
             values.save();
-            if (values.balDeadWidth == 1.0){
+        }
+        if (values.balWidth !== 13.3 && values.balStatus !== "dead" && values.balStatus !== "alive"){ // not alive
+            if (values.balWidth == 1.0){
                 if (!values.balSpawning1_5Lock){
                     values.balSpawning1_5Lock = true;
-                    values.save();
                     setTimeout(() => {
                         values.balSpawning1_5Lock = null;
                         values.save();
                     }, 4500);
                 }
             }
-            if (!values.balSpawnPosX || !values.balSpawnPosY || !values.balSpawnPosZ){
+            values.save();
+            if (!values.balSpawnPosX || !values.balSpawnPosY || !values.balSpawnPosZ && values.balWidth < 12.8){
                 ChatLib.chat("&b[&4Bal&6Addons&b]&r &4Bal&r &5spawn&r (dead bal) has been identified!")
-                values.balSpawnPosX = balDeadEntity.getX();
-                values.balSpawnPosY = balDeadEntity.getY();
-                values.balSpawnPosZ = balDeadEntity.getZ();
+                values.balSpawnPosX = balEntity.getX();
+                values.balSpawnPosY = balEntity.getY();
+                values.balSpawnPosZ = balEntity.getZ();
                 ChatLib.chat(`&b[&4Bal&6Addons&b]&r &5balPos&r set as ${values.balSpawnPosX}, ${values.balSpawnPosY}, ${values.balSpawnPosZ} `)
             }
-            if(!values.balStatus){
-                if(tempWidthComparator){
-                    if(tempWidthComparator < values.balDeadWidth){ //bal size increased
-                        values.balStatus = "spawning";
-                        values.save();
-                    }
-                    if(tempWidthComparator > values.balDeadWidth){ //bal size decreased
-                        values.balStatus = "dying";
-                        values.save();
-                    }
+            if(tempWidthComparator){
+                if(tempWidthComparator < values.balDeadWidth){ //bal size increased
+                    values.balStatus = "spawning";
                 }
-                else tempWidthComparator = values.balDeadWidth;
+                else if(tempWidthComparator > values.balDeadWidth){ //bal size decreased
+                    values.balStatus = "dying";
+                }
             }
+            else tempWidthComparator = values.balDeadWidth;
         }
-        else if (balAliveEntity){
+        else if (values.balWidth == 13.3){
             values.balStatus = "alive";
             values.balAlivePosX = balAliveEntity.getX();
             values.balAlivePosY = balAliveEntity.getY();
             values.balAlivePosZ = balAliveEntity.getZ();
         }
-        else if(!values.balSpawning1_5Lock){
+        else if(!values.balWidth && !values.balSpawning1_5Lock){
             values.balStatus = "dead";
         }
-        if (values.balSpawnPosX && values.balSpawnPosY && values.balSpawnPosZ) values.balSpawnDist = Player.asPlayerMP().distanceTo(values.balSpawnPosX, values.balSpawnPosY, values.balSpawnPosZ).toFixed(1);
+        if (values.balSpawnPosX && values.balSpawnPosY && values.balSpawnPosZ){
+            values.balSpawnDist = Player.asPlayerMP().distanceTo(values.balSpawnPosX, values.balSpawnPosY, values.balSpawnPosZ).toFixed(1);
+        }
         values.save();
         //ChatLib.chat(values.balSpawningTimerSecond)
     }
@@ -107,6 +112,7 @@ register("chat", (message) => {
             BalSpawnOverlay.setString(settings.txtBalSpawn).setX(200).setY(200).setScale(3).setColor(settings.colorBalSpawn.getRGB());
             values.balSpawnOverlayToggle = true;
             values.balStatus = "spawning";
+            values.balHealth = 250;
             values.save();
             setTimeout(() => {
                 values.balSpawnOverlayToggle = false;

@@ -21,13 +21,14 @@ register("WorldLoad", () => {
 })
 
 register("WorldLoad", () => {
+    values.version = "0.0.2";
     values.balStatus = null;
     values.balSpawning1_5Lock = null;
     values.balSpawnPosX = null;
     values.balSpawnPosY = null;
     values.balSpawnPosZ = null;
     values.balSpawnDist = null;
-    values.balDeadWidth = null;
+    values.balWidth = null;
     values.balHealth = null;
     values.balAlivePosX = null;
     values.balAlivePosY = null;
