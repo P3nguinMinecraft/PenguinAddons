@@ -42,7 +42,8 @@ import {
             "Death Alert Color",
             "Lobby Swapper Default Location",
             "Lobby Swapper Default Swap Location",
-            "Powder Chest Highlight"
+            "Powder Chest Highlight",
+            "Scan Radius"
         ];
         return names.indexOf(a.attributesExt.name) - names.indexOf(b.attributesExt.name);
     }

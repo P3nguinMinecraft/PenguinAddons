@@ -1,51 +1,53 @@
 import settings from "../utils/config";
 import constants from "../utils/constants";
-import RenderLib from "../../RenderLib";
-
-const foundChests = []; // List to store found chests
+import RenderLib from "../RenderLib";
+let foundChests = new Set();
+let openLock = false;
 
 function findChests(radius){
-    foundChests.length = 0; // Clear the list at the start of each tick
-    let PlayerX = parseInt(Player.getX().toFixed(0));
-    let PlayerY = parseInt(Player.getY().toFixed(0));
-    let PlayerZ = parseInt(Player.getZ().toFixed(0));
-
-    for (let x = -radius; x <= radius; x++) {
-        for (let y = -radius; y <= radius; y++) {
-            for (let z = -radius; z <= radius; z++) {
-                let LocX = PlayerX + x;
-                let LocY = PlayerY + y;
-                let LocZ = PlayerZ + z;
-                
-                if (World.getBlockAt(LocX, LocY, LocZ).getType().getRegistryName().includes("minecraft:chest")) {
-                    ChatLib.chat(`§cChest found at: §a${LocX}, ${LocY}, ${LocZ}`);
-                    foundChests.push({ x: LocX + 0.5, y: LocY, z: LocZ + 0.5 }); // Add to list of chests per tick
-                }
-            }
+    const PlayerPos = Player.asPlayerMP();
+    const currentChests = new Set(); // Create a new set for the current tick
+    World.getWorld().field_147482_g.forEach(entity => {
+        if (entity instanceof Java.type("net.minecraft.tileentity.TileEntityChest")) {
+            if (entity.field_145987_o > 0) return;
+            const xn = entity.func_174877_v().func_177958_n();
+            const yn = entity.func_174877_v().func_177956_o();
+            const zn = entity.func_174877_v().func_177952_p();
+            if (PlayerPos.distanceTo(xn, yn, zn).toFixed(1) > radius) return;
+            currentChests.add({ x: xn + 0.5, y: yn, z: zn + 0.5 }); // Add to set of chests per tick
+            ChatLib.chat("found")
         }
-    }
-};
+    });
+
+    // Remove chests from the foundChests set that are within radius blocks of the player
+    foundChests = new Set([...foundChests].filter(chest => {
+        return PlayerPos.distanceTo(chest.x, chest.y, chest.z) > radius;
+    }));
+
+    // Add all the currentChests to foundChests
+    foundChests = new Set([...foundChests, ...currentChests]);
+}
 
 register("renderWorld", () => {
-    highlightBlocks();
+    if (false) foundChests.clear();
+    foundChests.forEach(chest => {
+        RenderLib.drawInnerEspBox(chest.x, chest.y, chest.z, 1, 1, 1, 0, 0, 0.5, true); // x y z r g b a phase
+    });
 });
 
-function highlightBlocks() {
-    foundChests.forEach(chest => {
-        RenderLib.drawEspBox(chest.x, chest.y, chest.z, 1, 1, 1, 0, 0, 0.5, true); // x y z r g b a phase
-    });
-}
 register("chat", (message) => {
     if(message.removeFormatting().includes(constants.ChestFoundMessage)){
         setTimeout(() => {
-            if (settings.boolChestHighlight == true) findChests(settings.scanRadius);
+            if (true) findChests(settings.scanRadius);
         }, 50);
     }
     if(message.removeFormatting().includes(constants.ChestOpenedMessage)){
-        setTimeout(() => {
-            if (settings.boolChestHighlight == true) findChests(settings.scanRadius);
-        }, 50);
+        if (openLock == false){ // to prevent too much spamming
+            openLock = true;
+            setTimeout(() => {
+                openLock = false;
+                if (true) findChests(settings.scanRadius);
+            }, 500);
+        }   
     }
 }).setCriteria("${message}");
-
-
