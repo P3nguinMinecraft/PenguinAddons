@@ -5,7 +5,9 @@ const constants = new PogObject("BalAddons", {
     Bal75Message: "The boss's outer shell looks to be weakening!",
     Bal50Message: "Half way there! The boss is starting to become weaker!",
     Bal33Message: "Nearly there! The boss is shaking, it can't last much longer!", 
-    BalDeathMessage: "The boss looks weak and tired and retreats into the lava..."
+    BalDeathMessage: "The boss looks weak and tired and retreats into the lava...",
+    ChestFoundMessage: "You uncovered a treasure chest!",
+    ChestOpenedMessage: "You received"
 });
 
 export default constants;

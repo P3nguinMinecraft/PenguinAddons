@@ -67,7 +67,6 @@ register("tick", () => {
         }
         if(!values.balWidth && !values.balSpawning1_5Lock){
             values.balStatus = "dead";
-            console.log("entity dead")
         }
         if (values.balSpawnPosX && values.balSpawnPosY && values.balSpawnPosZ){
             values.balSpawnDist = Player.asPlayerMP().distanceTo(values.balSpawnPosX, values.balSpawnPosY, values.balSpawnPosZ).toFixed(1);
@@ -101,8 +100,8 @@ register("renderWorld", RenderWorld);
 function RenderWorld(){
     if (values.inCH == true){
         //add renders as needed
-        if (values.balSpawningTimerWorldToggle == true) Tessellator.drawString(`${balSpawningTimerSecond} seconds`, values.balSpawnPosX, values.balSpawnPosY+10, values.balSpawnPosZ, Renderer.WHITE, true, 1.5, true)
-        if (values.balDeadTimerWorldToggle == true) Tessellator.drawString(`${balDeadTimerSecond} seconds`, values.balSpawnPosX, values.balSpawnPosY+10, values.balSpawnPosZ, Renderer.WHITE, true, 1.5, true)
+        if (values.balSpawningTimerWorldToggle == true) Tessellator.drawString(`${balSpawningTimerSecond} seconds`, values.balSpawnPosX, values.balSpawnPosY, values.balSpawnPosZ, Renderer.WHITE, true, 1.5, true)
+        if (values.balDeadTimerWorldToggle == true) Tessellator.drawString(`${balDeadTimerSecond} seconds`, values.balSpawnPosX, values.balSpawnPosY, values.balSpawnPosZ, Renderer.WHITE, true, 1.5, true)
             // Tessellator.scale
         if (values.balSpawnPosX && values.balSpawnPosY && values.balSpawnPosZ && (settings.boolBalWaypoint = true)) Tessellator.drawString(`Bal ${values.balSpawnDist}m`, values.balSpawnPosX, values.balSpawnPosY, values.balSpawnPosZ, Renderer.WHITE, true, 1.5, true)
     }

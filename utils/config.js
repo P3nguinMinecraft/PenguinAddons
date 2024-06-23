@@ -13,7 +13,7 @@ import {
 } from "../../Vigilance/index";
 @Vigilant("BalAddons","BalAddons", {
     getCategoryComparator: () => (a, b) => {
-        const categories = ['Bal','Lobby Swapper'];
+        const categories = ['Bal','Lobby Swapper','Powder Mining'];
         return categories.indexOf(a.name) - categories.indexOf(b.name);
     },
     getPropertyComparator: () => (a, b) => {
@@ -41,7 +41,8 @@ import {
             "Death Alert Text",
             "Death Alert Color",
             "Lobby Swapper Default Location",
-            "Lobby Swapper Default Swap Location"
+            "Lobby Swapper Default Swap Location",
+            "Powder Chest Highlight"
         ];
         return names.indexOf(a.attributesExt.name) - names.indexOf(b.attributesExt.name);
     }
@@ -62,6 +63,7 @@ class settings{
         this.addDependency("33 Percent Alert Color","33 Percent HP Alert");
         this.addDependency("Death Alert Text","Death Alert");
         this.addDependency("Death Alert Color","Death Alert");
+        this.addDependency("Scan Radius", "Powder Chest Highlight");
         this.setCategoryDescription('&4Bal', 'Stuff about Bal');
     }
 
@@ -217,5 +219,21 @@ class settings{
         category: "Lobby Swapper"
     })
     defaultSwap = "";
+    
+    @SwitchProperty({
+        name: "Powder Chest Highlight",
+        description: "Highlights powder chests when found.",
+        category: "Powder Mining"
+    })
+    boolChestHighlight = false;
+
+    @SliderProperty({
+        name: "Scan Radius",
+        description: "How far to scan for powder chests. (x blocks in each axis)",
+        min: 0,
+        max: 32,
+        category: "Powder Mining"
+    })
+    scanRadius = 32;
 }
 export default new settings();

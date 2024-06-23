@@ -45,6 +45,7 @@ register("WorldLoad", () => {
     values.balSpawningTimerWorldToggle = false;
     values.balSpawningTimerTick = null;
     values.balSpawningTimerSecond = null;
+    values.balDeadTimerWorldToggle = false;
     values.balDeadTimerTick = null;
     values.balDeadTimerSecond = null;
     values.balSpawningHUDToggle = false;
