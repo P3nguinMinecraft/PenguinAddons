@@ -1,6 +1,7 @@
-import settings from "./utils/config"
-import values from "./utils/values"
-import { lobbySwap } from "./features/LobbySwap"
+import settings from "./config"
+import moveOverlay from "./moveOverlay"
+import values from "./values"
+import lobbySwap from "../features/LobbySwap"
 register('command', (parameters) => {
     const bahelp = new TextComponent("&b[&cBal&6Addons&b]&r &c/baladdons &r&e&oHover for more details.").setHoverValue("&r&4Command: &7&o&n/baladdons &eAliases: &7&o&n/ba, /bal, /baladdon. &bProper use is &7&o&n'/baladdons &a&o&n(parameter)'. &6Parameter: &8Tab for all possible parameters. &dNothing/Help: &7Opens this help page. &dConfig: &7Opens config. &dValues: &7Dumps all values for debug purposes. &dVersion: &7Prints module version.");
     const lshelp = new TextComponent("&b[&cBal&6Addons&b]&r &c/lobbyswap &r&e&oHover for more details.").setHoverValue("&r&4Command: &7&o&n/lobbyswap &eAliases: &7&o&n/ls, /lswap, /swap, /lobbyhop, /lh. &bProper use is &7&o&n'/lobbyswap &a&o&n(location) (swap location)'. &6Location: &8Skyblock Island you want to lobby hop in. &dSwap Location: &8Skyblock Island you want to use as a middleman. &4Both Location and Swap Location need to be unlocked travel scrolls (or default) that is compatible with &7&o/warp &c&o{name}. &8Use 'name' in the command. Exp: Switching crystal hollows lobby and using hub as a middleman: &7&o/lobbyswap &ach hub");
@@ -14,7 +15,10 @@ register('command', (parameters) => {
         case "config":
             ChatLib.chat('&b[&cBal&6Addons&b]&r Opening BalAddons Config Gui...')
             settings.openGUI();
-            return;
+            break;
+        case "gui":
+            ChatLib.chat('&b[&cBal&6Addons&b]&r Opening BalAddons Overlay Config Gui...')
+            moveOverlay();
         case "help":
             ChatLib.chat("&b[&cBal&6Addons&b]&r &eCommand Help")
             ChatLib.chat(bahelp)
@@ -64,8 +68,10 @@ register('command', (parameters) => {
             ChatLib.chat("&b[&cBal&6Addons&b]&r Parameters not supported.")
             break;
     }
-}).setName('baladdons').setAliases('ba','bal','baladdon').setTabCompletions('config','help','values','version')
+}).setName("baladdons").setAliases("ba","bal","baladdon").setTabCompletions("config","gui","help","values","version");
 
-register("command", (location, swap) => {
-    lobbySwap(location, swap)
-}).setName("lobbyswap").setAliases("ls", "lswap", "swap", "lobbyhop", "lh");
+register("command", (...args) => {
+    if (args[0] && args[1]) lobbySwap(args[0],args[1])
+    else if (!args[1] && args[0]) lobbySwap(args[0])
+    else if (!args[0]) lobbySwap()
+}).setName("lobbyswap").setAliases("ls", "lswap", "swap", "lobbyhop", "lh").setTabCompletions("(location)(swap)");

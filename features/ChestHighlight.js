@@ -1,8 +1,9 @@
 import settings from "../utils/config";
 import constants from "../utils/constants";
-import RenderLib from "../RenderLib";
+import RenderLib from "../../RenderLib";
 let foundChests = new Set();
 let openLock = false;
+let tempbool = false;
 
 function findChests(radius){
     const PlayerPos = Player.asPlayerMP();
@@ -29,7 +30,15 @@ function findChests(radius){
 }
 
 register("renderWorld", () => {
-    if (settings.boolChestHighlight == false && foundChests.size > 0) foundChests.clear();
+    if (tempbool !== settings.boolChestHighlight){ // changed
+        if (settings.boolChestHighlight == false){
+            foundChests.size = 0;
+        }
+        if (settings.boolChestHighlight == true){
+            findChests(settings.scanRadius);
+        }
+        tempbool = settings.boolChestHighlight; // if changed then update it
+    }
     foundChests.forEach(chest => {
         RenderLib.drawInnerEspBox(chest.x, chest.y, chest.z, 1, 1, 1, 0, 0, 0.5, true); // x y z r g b a phase
     });

@@ -1,3 +1,4 @@
+import moveOverlay from "./moveOverlay";
 import {
     @Vigilant, 
     @SwitchProperty, 
@@ -10,19 +11,21 @@ import {
     @PercentSliderProperty, 
     @DecimalSliderProperty, 
     Color
-} from "../../Vigilance/index";
+} from "../../Vigilance";
 @Vigilant("BalAddons","BalAddons", {
     getCategoryComparator: () => (a, b) => {
-        const categories = ['Bal','Lobby Swapper','Powder Mining'];
+        const categories = ['Main','Bal','Lobby Swapper','Powder Mining'];
         return categories.indexOf(a.name) - categories.indexOf(b.name);
     },
     getPropertyComparator: () => (a, b) => {
         const names = [
+            "GUI Settings",
             "Bal Waypoint",
             "Bal Info HUD",
             "Bal Status HUD",
+            "Bal Status HUD Color",
             "Bal Coordinate HUD",
-            "Bal HUD Color",
+            "Bal Coordinate HUD Color",
             "Spawn Alert",
             "Spawn Alert Text",
             "Spawn Alert Color",
@@ -52,8 +55,9 @@ class settings{
     constructor() {
         this.initialize(this);
         this.addDependency("Bal Status HUD", "Bal Info HUD");
+        this.addDependency("Bal Status HUD Color", "Bal Info HUD");
         this.addDependency("Bal Coordinate HUD", "Bal Info HUD");
-        this.addDependency("Bal HUD Color", "Bal Info HUD");
+        this.addDependency("Bal Coordinate HUD Color", "Bal Info HUD");
         this.addDependency("Spawn Alert Text", "Spawn Alert");
         this.addDependency("Spawn Alert Color", "Spawn Alert");
         this.addDependency("75 Percent Alert Text","75 Percent HP Alert");
@@ -65,10 +69,22 @@ class settings{
         this.addDependency("Death Alert Text","Death Alert");
         this.addDependency("Death Alert Color","Death Alert");
         this.addDependency("Scan Radius", "Powder Chest Highlight");
-        this.setCategoryDescription('&4Bal', 'Stuff about Bal');
+        this.setCategoryDescription("Main","Home page for BalAddons");
+        this.setCategoryDescription("Bal", "Stuff about Bal");
+        this.setCategoryDescription("Lobby Swapper", "Settings for /lobbyswap Command");
+        this.setCategoryDescription("Powder Mining", "QOL Stuff for Powder Mining");
     }
 
     // ikik i need to add screen position config but i cba rn, might make some gui edit code or be lazy and have some sliders for everything
+    @ButtonProperty({
+        name: "GUI Settings",
+        description: "Click here to edit GUI locations.",
+        category: "Main",
+        placeholder: "Click!"
+        })
+    gui(){
+        moveOverlay();
+    }
 
     @SwitchProperty({
         name: "Bal Waypoint",
@@ -92,6 +108,12 @@ class settings{
     })
     boolBalStatusHUD = false;
 
+    @ColorProperty({
+        name: "Bal Status HUD Color",
+        category: "Bal"
+    })
+    colorBalStatusHUD = Color.RED;
+
     @SwitchProperty({
         name: "Bal Coordinate HUD",
         description: "Shows the coordinates of &4Bal &rwhen it is alive, spawning, or dead.",
@@ -100,11 +122,11 @@ class settings{
     boolBalCoordHUD = false;
 
     @ColorProperty({
-        name: "Bal HUD Color",
+        name: "Bal Coordinate HUD Color",
         category: "Bal"
     })
-    colorBalHUD = Color.RED;
-    
+    colorBalCoordHUD = Color.RED;
+
     @SwitchProperty({
         name: "Spawn Alert",
         description: "Tells you when &4Bal &rspawns.",
@@ -114,6 +136,8 @@ class settings{
     
     @TextProperty({
         name: "Spawn Alert Text",
+        decription: "Text that appears when the alert is triggered.",
+        placeholder: "Blank = Nothing Appears",
         category: "Bal"
     })
     txtBalSpawn = "Bal Spawning";
@@ -140,6 +164,8 @@ class settings{
 
     @TextProperty({
         name: "75 Percent Alert Text",
+        decription: "Text that appears when the alert is triggered.",
+        placeholder: "Blank = Nothing Appears",
         category: "Bal"
     })
     txtBal75 = "75% HP";
@@ -159,6 +185,8 @@ class settings{
 
     @TextProperty({
         name: "50 Percent Alert Text",
+        decription: "Text that appears when the alert is triggered.",
+        placeholder: "Blank = Nothing Appears",
         category: "Bal"
     })
     txtBal50 = "50% HP";
@@ -178,6 +206,8 @@ class settings{
 
     @TextProperty({
         name: "33 Percent Alert Text",
+        decription: "Text that appears when the alert is triggered.",
+        placeholder: "Blank = Nothing Appears",
         category: "Bal"
     })
     txtBal33 = "33% HP";
@@ -197,6 +227,8 @@ class settings{
 
     @TextProperty({
         name: "Death Alert Text",
+        decription: "Text that appears when the alert is triggered.",
+        placeholder: "Blank = Nothing Appears",
         category: "Bal"
     })
     txtBalDeath = "Bal Died";
@@ -210,6 +242,7 @@ class settings{
     @TextProperty({
         name: "Lobby Swapper Default Location",
         description: "&4There must be a value if you want to use /lobbyswap without parameters. &r&9Example: &r&7Swapping &bcrystal hollows &r&7lobby, then input &a&o'ch', 'crystal', &r&7or &a&o'hollows'. &r&cLocation has to be &o/warp &r&ccompatible, &4AKA you must have the scroll unlocked.",
+        placeholder: "Examples: hub, ch, dhub, jungle",
         category: "Lobby Swapper"
     })
     defaultLocation = "";
@@ -217,6 +250,7 @@ class settings{
     @TextProperty({
         name: "Lobby Swapper Default Swap Location",
         description: "&4There must be a value if you want to use /lobbyswap without parameters. &r&9Example: &r&7Swapping &bcrystal hollows &r&7lobby, you might swap to the &bhub &r&7and then back to the &bcrystal hollows. &r&7So you would input &a&o'hub' &r&7or &a&o'village'. &r&cSwap location has to be &o/warp &r&ccompatible, &4AKA you must have the scroll unlocked.",
+        placeholder: "Examples: hub, ch, dhub, jungle",
         category: "Lobby Swapper"
     })
     defaultSwap = "";
@@ -235,6 +269,6 @@ class settings{
         max: 32,
         category: "Powder Mining"
     })
-    scanRadius = 32;
+    scanRadius = 0;
 }
 export default new settings();
