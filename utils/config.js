@@ -1,4 +1,3 @@
-import moveOverlay from "./moveOverlay";
 import {
     @Vigilant, 
     @SwitchProperty, 
@@ -11,7 +10,7 @@ import {
     @PercentSliderProperty, 
     @DecimalSliderProperty, 
     Color
-} from "../../Vigilance";
+} from "../../Vigilance/index";
 @Vigilant("BalAddons","BalAddons", {
     getCategoryComparator: () => (a, b) => {
         const categories = ['Main','Bal','Lobby Swapper','Powder Mining'];
@@ -83,7 +82,7 @@ class settings{
         placeholder: "Click!"
         })
     gui(){
-        moveOverlay();
+        ChatLib.command("ba gui")
     }
 
     @SwitchProperty({
@@ -98,7 +97,6 @@ class settings{
         description: "Provides useful information about &4Bal &rwhen in the &aCrystal Hollows&r, such as phase and coordinates.",
         category: "Bal"
     })
-
     boolBalHUD = false;
 
     @SwitchProperty({

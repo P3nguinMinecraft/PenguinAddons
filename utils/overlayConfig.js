@@ -1,14 +1,16 @@
 import PogObject from "../../PogData";
 
 const overlayConfig = new PogObject("BalAddons", {
-    BalStatusHUDX: Renderer.screen.getWidth()/2,
-    BalStatusHUDY: Renderer.screen.getHeight()/2,
+    BalStatusHUDX: 0,
+    BalStatusHUDY: 0,
     BalStatusHUDScale: 1,
 
-    BalCoordHUDX: Renderer.screen.getWidth()/2,
-    BalCoordHUDY: Renderer.screen.getHeight()/2,
+    BalCoordHUDX: 0,
+    BalCoordHUDY: 0,
     BalCoordHUDScale: 1,
 
 });
 
-export default overlayConfig;
+// export default overlayConfig;
+
+// moved to values will delete if it works

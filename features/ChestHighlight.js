@@ -16,7 +16,6 @@ function findChests(radius){
             const zn = entity.func_174877_v().func_177952_p();
             if (PlayerPos.distanceTo(xn, yn, zn).toFixed(1) > radius) return;
             currentChests.add({ x: xn + 0.5, y: yn, z: zn + 0.5 }); // Add to set of chests per tick
-            ChatLib.chat("found")
         }
     });
 

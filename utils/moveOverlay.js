@@ -1,6 +1,6 @@
 // stolen from turtleaddons yipee
 import settings from "./config";
-import overlayConfig from "./overlayConfig";
+import values from "./values";
 
 let gui = new Gui();
 
@@ -16,8 +16,8 @@ register('step', () => {
     if (!gui.isOpen()) {
         overlays.length = 0;
 
-        if (settings.boolBalStatusHUD) overlays.push(['BalStatusHUD', overlayConfig.BalStatusHUDX, overlayConfig.BalStatusHUDY, overlayConfig.BalStatusHUDScale, `Bal Status: Example\nInformation: 69420 units`]);
-        if (settings.boolBalCoordHUD) overlays.push(['BalCoordHUD', overlayConfig.BalCoordHUDX, overlayConfig.BalCoordHUDY, overlayConfig.BalCoordHUDScale, `Bal Coordinates\nX: Number\nY: Another number\nZ: 69.42`]);
+        if (settings.boolBalStatusHUD) overlays.push(['BalStatusHUD', values.BalStatusHUDX, values.BalStatusHUDY, values.BalStatusHUDScale, `Bal Status: Example\nInformation: 69420 units`]);
+        if (settings.boolBalCoordHUD) overlays.push(['BalCoordHUD', values.BalCoordHUDX, values.BalCoordHUDY, values.BalCoordHUDScale, `Bal Coordinates\nX: Number\nY: Another number\nZ: 69.42`]);
     }
 }).setDelay(1)
 
@@ -66,14 +66,14 @@ register("scrolled", (x, y, direction) => {
         overlays.forEach((overlay, index) => {
             if (direction == 1 && draggingIndex == index && overlay[3] > 0.2) {
                 overlay[3] += 0.1;
-                overlayConfig[overlay[0] + 'Scale'] += 0.1;
-                overlayConfig.save();
+                values[overlay[0] + 'Scale'] += 0.1;
+                values.save();
             }
 
             if (direction == -1 && draggingIndex == index && overlay[3] > 0.3) {
                 overlay[3] -= 0.1;
-                overlayConfig[overlay[0] + 'Scale'] -= 0.1;
-                overlayConfig.save();
+                values[overlay[0] + 'Scale'] -= 0.1;
+                values.save();
             }
         })
     }
@@ -85,9 +85,9 @@ register('dragged', (dx, dy, x, y) => {
             if (draggingIndex == index) {
                 overlay[1] += dx;
                 overlay[2] += dy;
-                overlayConfig[overlay[0] + 'X'] += dx;
-                overlayConfig[overlay[0] + 'Y'] += dy;
-                overlayConfig.save();
+                values[overlay[0] + 'X'] += dx;
+                values[overlay[0] + 'Y'] += dy;
+                values.save();
             }
         })
     }

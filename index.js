@@ -1,3 +1,5 @@
+console.log("Loading config")
+import "./utils/config";
 console.log("[BalAddons] Loading commands");
 import "./utils/commands";
 console.log("[BalAddons] Loading worldLoad");

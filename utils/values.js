@@ -32,6 +32,14 @@ const values = new PogObject("BalAddons", {
     balSpawningHUDToggle: false,
     balAliveHUDToggle: false,
     balDeadHUDToggle: false,
+
+    BalStatusHUDX: 0,
+    BalStatusHUDY: 0,
+    BalStatusHUDScale: 1,
+
+    BalCoordHUDX: 0,
+    BalCoordHUDY: 0,
+    BalCoordHUDScale: 1,
 });
 
 export default values;

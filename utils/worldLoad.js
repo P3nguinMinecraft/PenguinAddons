@@ -1,5 +1,4 @@
 import values from "./values";
-import { getArea } from "./skyblock";
 register("WorldLoad", () => {
     setTimeout(() => {
         //if (values.area.includes("Crystal Hollows")){ //apparently area is the biomes not "Crystal Hollows"

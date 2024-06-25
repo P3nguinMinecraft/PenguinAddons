@@ -1,6 +1,5 @@
 import settings from "../utils/config";
 import values from "../utils/values";
-import overlayConfig from "../utils/overlayConfig";
 import constants from "../utils/constants";
 
 let tempWidthComparator = null;
@@ -26,7 +25,7 @@ register("tick", () => {
             values.balFound = false;
         }
         values.save();
-        if (values.balWidth !== 13.3 && values.balStatus !== "dead"){ // not alive
+        if (values.balWidth !== 13.3 && values.balStatus !== "dead"){ // not dead or alive, entity exists but not full size
             if (values.balWidth == 1.0){
                 if (!values.balSpawning1_5Lock){
                     values.balSpawning1_5Lock = true;
@@ -48,33 +47,33 @@ register("tick", () => {
             if(tempWidthComparator){
                 if(tempWidthComparator < values.balWidth){ //bal size increased
                     values.balStatus = "spawning";
-                    console.log("comparator spawning")
+                    ChatLib.chat("comparator spawning")
                     tempWidthComparator = values.balWidth;
                 }
                 else if(tempWidthComparator > values.balWidth){ //bal size decreased
                     values.balStatus = "dying";
-                    console.log("comparator dying")
+                    ChatLib.chat("comparator dying")
                     tempWidthComparator = values.balWidth;
                 }
             }
             else tempWidthComparator = values.balWidth;
         }
         if (values.balWidth == 13.3){
-            values.balStatus = "alive";
+            if (values.balStatus !== "alive") values.balStatus = "alive";
             values.balAlivePosX = balEntity.getX().toFixed(2);
             values.balAlivePosY = balEntity.getY().toFixed(2);
             values.balAlivePosZ = balEntity.getZ().toFixed(2);
-            BalCoordHUD.setString(`Bal Coordinates\nX: ${values.balAlivePosX}\nY: ${values.balAlivePosY}\nZ: ${values.balAlivePosZ}`).setX(overlayConfig.BalCoordHUDX).setY(overlayConfig.BalCoordHUDY).setScale(overlayConfig.balCoordHUDScale).setColor(settings.colorBalCoordHUD.getRGB())
-            console.log("width alive")
+            BalCoordHUD.setString(`Bal Coordinates\nX: ${values.balAlivePosX}\nY: ${values.balAlivePosY}\nZ: ${values.balAlivePosZ}`).setX(values.BalCoordHUDX).setY(values.BalCoordHUDY).setScale(values.balCoordHUDScale).setColor(settings.colorBalCoordHUD.getRGB())
+            ChatLib.chat("width alive")
         }
-        if(!values.balWidth && !values.balSpawning1_5Lock){
+        if(!values.balWidth && !values.balSpawning1_5Lock && values.balStatus !== "dead"){
             values.balStatus = "dead";
+            ChatLib.chat("width dead")
         }
         if (values.balSpawnPosX && values.balSpawnPosY && values.balSpawnPosZ){
             values.balSpawnDist = Player.asPlayerMP().distanceTo(values.balSpawnPosX, values.balSpawnPosY, values.balSpawnPosZ).toFixed(1);
         }
         values.save();
-        //ChatLib.chat(values.balSpawningTimerSecond)
     }
 });
 
@@ -111,11 +110,11 @@ register("chat", (message) => {
     //add message triggers here, turn on and off toggle to the render, aswell as updating bal's status for the gui
     if(message.removeFormatting().includes(constants.BalSpawnMessage)){
         if(settings.boolBalSpawn == true){
-            console.log("balspawn")
+            ChatLib.chat("balspawn")
             BalSpawnOverlay.setString(settings.txtBalSpawn).setX(Renderer.screen.getWidth()/2).setY(Renderer.screen.getHeight()/2).setScale(5).setColor(settings.colorBalSpawn.getRGB());
             values.balSpawnOverlayToggle = true;
             values.balStatus = "spawning";
-            console.log("message spawning")
+            ChatLib.chat("message spawning")
             values.balHealth = 250;
             values.save();
             setTimeout(() => {
@@ -129,7 +128,7 @@ register("chat", (message) => {
 
     if(message.removeFormatting().includes(constants.Bal75Message)){
         if(settings.boolBal75 == true){
-            console.log("bal75")
+            ChatLib.chat("bal75")
             Bal75Overlay.setString(settings.txtBal75).setX(Renderer.screen.getWidth()/2).setY(Renderer.screen.getHeight()/2).setScale(5).setColor(settings.colorBal75.getRGB());
             values.bal75OverlayToggle = true;
             values.balHealth = 187;
@@ -143,7 +142,7 @@ register("chat", (message) => {
 
     if(message.removeFormatting().includes(constants.Bal50Message)){
         if(settings.boolBal50 == true){
-            console.log("bal50")
+            ChatLib.chat("bal50")
             Bal50Overlay.setString(settings.txtBal50).setX(Renderer.screen.getWidth()/2).setY(Renderer.screen.getHeight()/2).setScale(5).setColor(settings.colorBal50.getRGB());
             values.bal50OverlayToggle = true;
             values.balHeatlh = 125;
@@ -157,7 +156,7 @@ register("chat", (message) => {
 
     if(message.removeFormatting().includes(constants.Bal33Message)){
         if(settings.boolBal33 == true){
-            console.log("bal33")
+            ChatLib.chat("bal33")
             Bal33Overlay.setString(settings.txtBal33).setX(Renderer.screen.getWidth()/2).setY(Renderer.screen.getHeight()/2).setScale(5).setColor(settings.colorBal33.getRGB());
             values.bal33OverlayToggle = true;
             values.balHealth = 83;
@@ -171,12 +170,12 @@ register("chat", (message) => {
     
     if(message.removeFormatting().includes(constants.BalDeathMessage)){
         if(settings.boolBalDeath == true){
-            console.log("baldeath")
+            ChatLib.chat("baldeath")
             BalDeathOverlay.setString(settings.txtBalDeath).setX(Renderer.screen.getWidth()/2).setY(Renderer.screen.getHeight()/2).setScale(5).setColor(settings.colorBalDeath.getRGB());
             values.balDeathOverlayToggle = true;
             values.balHealth = 0;
             values.balStatus = "dying";
-            console.log("message dying")
+            ChatLib.chat("message dying")
             values.save();
             setTimeout(() => {
                 values.balDeathOverlayToggle = false;
@@ -193,21 +192,20 @@ register("tick", () => {
     if (values.balStatus == "spawning"){
         values.BalStatusHUDToggle = true;
         values.save();
-        BalStatusHUD.setString(`Bal Status: Spawning\nTimer: ${values.balSpawningTimerSecond} sec`).setX(overlayConfig.BalStatusHUDX).setY(BalStatusHUDY).setScale(BalStatusHUDScale).setColor(settings.colorBalStatusHUD.getRGB());
+        BalStatusHUD.setString(`Bal Status: Spawning\nTimer: ${values.balSpawningTimerSecond} sec`).setX(values.BalStatusHUDX).setY(values.BalStatusHUDY).setScale(values.BalStatusHUDScale).setColor(settings.colorBalStatusHUD.getRGB());
     }
     else if (values.balStatus == "alive"){
         values.BalStatusHUDToggle = true;
         values.save();
-        BalStatusHUD.setString(`Bal Status: Alive\nHP Estimate: ${values.balHealth} HP`).setX(overlayConfig.BalStatusHUDX).setY(BalStatusHUDY).setScale(BalStatusHUDScale).setColor(settings.colorBalStatusHUD.getRGB()); 
+        BalStatusHUD.setString(`Bal Status: Alive\nHP Estimate: ${values.balHealth} HP`).setX(values.BalStatusHUDX).setY(values.BalStatusHUDY).setScale(values.BalStatusHUDScale).setColor(settings.colorBalStatusHUD.getRGB()); 
     }
     else if (values.balStatus == "dead"){
         values.BalStatusHUDToggle = true;
         values.save();
-        BalStatusHUD.setString(`Bal Status: Dead\nTimer: ${values.balDeadTimerSecond} sec`).setX(overlayConfig.BalStatusHUDX).setY(BalStatusHUDY).setScale(BalStatusHUDScale).setColor(settings.colorBalStatusHUD.getRGB()); 
+        BalStatusHUD.setString(`Bal Status: Dead\nTimer: ${values.balDeadTimerSecond} sec`).setX(values.BalStatusHUDX).setY(values.BalStatusHUDY).setScale(values.BalStatusHUDScale).setColor(settings.colorBalStatusHUD.getRGB()); 
     }
     else {
         values.BalStatusHUDToggle = false;
         values.save();
-        BalStatusHUD.setString(`Bal Status: Unknown`).setX(overlayConfig.BalStatusHUDX).setY(BalStatusHUDY).setScale(BalStatusHUDScale).setColor(settings.colorBalStatusHUD.getRGB()); 
     }
 })
