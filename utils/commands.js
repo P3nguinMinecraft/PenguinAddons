@@ -17,7 +17,6 @@ register('command', (parameters) => {
             settings.openGUI();
             break;
         case "gui":
-            ChatLib.chat('&b[&cBal&6Addons&b]&r Opening BalAddons Overlay Config Gui...')
             moveOverlay();
         case "help":
             ChatLib.chat("&b[&cBal&6Addons&b]&r &eCommand Help")

@@ -9,7 +9,7 @@ function findChests(radius){
     const PlayerPos = Player.asPlayerMP();
     const currentChests = new Set(); // Create a new set for the current tick
     World.getWorld().field_147482_g.forEach(entity => {
-        if (entity instanceof Java.type("net.minecraft.tileentity.TileEntityChest")) {
+        if (entity instanceof Java.type("net.minecraft.tileentity.TileEntityChest")){
             if (entity.field_145987_o > 0) return;
             const xn = entity.func_174877_v().func_177958_n();
             const yn = entity.func_174877_v().func_177956_o();

@@ -82,7 +82,9 @@ class settings{
         placeholder: "Click!"
         })
     gui(){
-        ChatLib.command("ba gui")
+        Client.settings.close()
+        ChatLib.chat("maybe worked")
+        ChatLib.say("/ba gui")
     }
 
     @SwitchProperty({

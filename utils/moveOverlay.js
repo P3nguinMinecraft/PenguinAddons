@@ -8,12 +8,8 @@ let overlays = [];
 let draggingIndex = undefined;
 let strings = [];
 
-export default function moveOverlay() {
-    gui.open();
-}
-
 register('step', () => {
-    if (!gui.isOpen()) {
+    if (!gui.isOpen()){
         overlays.length = 0;
 
         if (settings.boolBalStatusHUD) overlays.push(['BalStatusHUD', values.BalStatusHUDX, values.BalStatusHUDY, values.BalStatusHUDScale, `Bal Status: Example\nInformation: 69420 units`]);
@@ -30,7 +26,7 @@ register('renderOverlay', () => {
     
     overlays.forEach(overlay => {
         if (typeof settings[overlay[0]] == Boolean) settings[overlay[0]] = false
-        else if (typeof settings[overlay[0]] == String) {
+        else if (typeof settings[overlay[0]] == String){
             strings.push(settings[overlay[0]]);
             settings[overlay[0]] = '';
         }
@@ -42,7 +38,7 @@ register('renderOverlay', () => {
 register('guiClosed', () => {
     if (gui.isOpen()) overlays.forEach(overlay => {
         if (typeof settings[overlay[0]] == Boolean) settings[overlay[0]] = true
-        else if (typeof settings[overlay[0]] == String) {
+        else if (typeof settings[overlay[0]] == String){
             settings[overlay[0]] = strings[0];
             strings.splice(0, 1);
         }
@@ -50,7 +46,7 @@ register('guiClosed', () => {
 })
 
 register('guiMouseClick', (x, y) => {
-    if (gui.isOpen()) {
+    if (gui.isOpen()){
         overlays.forEach((overlay, index) => {
             if (x > overlay[1] - 5 && x < overlay[1] - 5 + ((Renderer.getStringWidth(overlay[4]) + 10) * overlay[3]) && y > overlay[2] - 5 && y < overlay[2] + (10 * overlay[3])) draggingIndex = index;
         })
@@ -62,15 +58,15 @@ register('guiMouseRelease', () => {
 })
 
 register("scrolled", (x, y, direction) => {
-    if (gui.isOpen()) {
+    if (gui.isOpen()){
         overlays.forEach((overlay, index) => {
-            if (direction == 1 && draggingIndex == index && overlay[3] > 0.2) {
+            if (direction == 1 && draggingIndex == index && overlay[3] > 0.2){
                 overlay[3] += 0.1;
                 values[overlay[0] + 'Scale'] += 0.1;
                 values.save();
             }
 
-            if (direction == -1 && draggingIndex == index && overlay[3] > 0.3) {
+            if (direction == -1 && draggingIndex == index && overlay[3] > 0.3){
                 overlay[3] -= 0.1;
                 values[overlay[0] + 'Scale'] -= 0.1;
                 values.save();
@@ -80,9 +76,9 @@ register("scrolled", (x, y, direction) => {
 })
 
 register('dragged', (dx, dy, x, y) => {
-    if (gui.isOpen()) {
+    if (gui.isOpen()){
         overlays.forEach((overlay, index) => {
-            if (draggingIndex == index) {
+            if (draggingIndex == index){
                 overlay[1] += dx;
                 overlay[2] += dy;
                 values[overlay[0] + 'X'] += dx;
@@ -92,3 +88,8 @@ register('dragged', (dx, dy, x, y) => {
         })
     }
 })
+
+export default function moveOverlay(){
+    ChatLib.chat('&b[&cBal&6Addons&b]&r Opening BalAddons Overlay Config Gui...')
+    gui.open();
+}

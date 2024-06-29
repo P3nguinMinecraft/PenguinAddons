@@ -1,4 +1,4 @@
-console.log("Loading config")
+console.log("[BalAddons] Loading config")
 import "./utils/config";
 console.log("[BalAddons] Loading commands");
 import "./utils/commands";

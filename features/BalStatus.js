@@ -36,7 +36,7 @@ register("tick", () => {
                 }
             }
             values.save();
-            if ((!values.balSpawnPosX || !values.balSpawnPosY || !values.balSpawnPosZ) && values.balWidth < 12.8 && values.balWidth !== null) {
+            if ((!values.balSpawnPosX || !values.balSpawnPosY || !values.balSpawnPosZ) && values.balWidth < 12.8 && values.balWidth !== null){
                 ChatLib.chat("&b[&cBal&6Addons&b]&r &4Bal&r &5spawn&r (dead bal) has been identified!");
                 values.balSpawnPosX = balEntity.getX();
                 values.balSpawnPosY = balEntity.getY();

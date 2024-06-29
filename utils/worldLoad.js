@@ -1,5 +1,5 @@
 import values from "./values";
-register("WorldLoad", () => {
+register("worldLoad", () => {
     setTimeout(() => {
         //if (values.area.includes("Crystal Hollows")){ //apparently area is the biomes not "Crystal Hollows"
         if (TabList.getNames().join("").includes("Crystal Hollows")){
@@ -19,7 +19,7 @@ register("WorldLoad", () => {
     }
 })
 
-register("WorldLoad", () => {
+register("worldLoad", () => {
     values.version = "0.0.2";
     values.balStatus = null;
     values.balFound = null;
