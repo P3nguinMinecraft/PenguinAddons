@@ -3,7 +3,7 @@
 #### ChatTriggers QOL Module for Hypixel Skyblock. This is aimed towards Bal Farming, but also has some nice features that I find helpful in other areas. 
 [ChatTriggers Link](https://www.chattriggers.com/modules/v/BalAddons)
 
-## The CT version might not be updated because it takes a long time to get it approved, so just download this repository (clone as .zip and unzip) and put it in
+#### The CT version might not be updated because it takes a long time to get it approved, so just download this repository (clone as .zip and unzip) and put it in
 ```
 .minecraft > config > ChatTriggers > modules
 ```
