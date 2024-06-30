@@ -82,9 +82,8 @@ class settings{
         placeholder: "Click!"
         })
     gui(){
-        Client.settings.close()
-        ChatLib.chat("maybe worked")
-        ChatLib.say("/ba gui")
+        Client.currentGui.close()
+        ChatLib.simulateChat("[BalAddons] Overlay Config Gui")
     }
 
     @SwitchProperty({

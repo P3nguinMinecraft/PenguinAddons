@@ -4,5 +4,9 @@
     "description": "ChatTriggers QOL Module for Hypixel Skyblock. This is aimed towards Bal Farming, but also has some nice features that I find helpful in other areas. Refer to GitHub for info on features.",
     "version": "0.0.2",
     "entry": "index.js",
-    "requires": ["PogData","Vigilance","RenderLib"]
+    "requires": [
+        "PogData",
+        "Vigilance",
+        "RenderLib"
+    ]
 }
