@@ -2,7 +2,6 @@ import settings from "./config"
 import moveOverlay from "./moveOverlay"
 import values from "./values"
 import lobbySwap from "../features/LobbySwap"
-let amogus
 register("command", (...para) => {
     const bahelp = new TextComponent("&b[&cBal&6Addons&b]&r &c/baladdons &r&e&oHover for more details.").setHoverValue("&r&4Command: &7&o&n/baladdons &eAliases: &7&o&n/ba, /bal, /baladdon. &bProper use is &7&o&n'/baladdons &a&o&n(parameter)'. &6Parameter: &8Tab for all possible parameters. &dNothing/Help: &7Opens this help page. &dConfig: &7Opens config. &dGUI: &7Opens GUI config. &dValues: &7Dumps all values for debug purposes. &dVersion: &7Prints module version.");
     const lshelp = new TextComponent("&b[&cBal&6Addons&b]&r &c/lobbyswap &r&e&oHover for more details.").setHoverValue("&r&4Command: &7&o&n/lobbyswap &eAliases: &7&o&n/ls, /lswap, /swap, /lobbyhop, /lh. &bProper use is &7&o&n'/lobbyswap &a&o&n(location) (swap location)'. &6Location: &8Skyblock Island you want to lobby hop in. &dSwap Location: &8Skyblock Island you want to use as a middleman. &4Both Location and Swap Location need to be unlocked travel scrolls (or default) that is compatible with &7&o/warp &c&o{name}. &8Use 'name' in the command. Exp: Switching crystal hollows lobby and using hub as a middleman: &7&o/lobbyswap &ach hub");
@@ -79,15 +78,22 @@ register("command", (...args) => {
 
 register("chat", (message, event) => {
     if (message.toString().includes("[BalAddons] Overlay Config Gui")){
-        ChatLib.chat("config gui")
         cancel(event);
         moveOverlay();
     }
 }).setCriteria("${message}");
 
+register("command", (...args) => {
+    setVar(args[0].toString(), args[1].toString())
+    ChatLib.chat(`Set ${args[0].toString()} to ${args[1].toString()}`)
+}).setName("setvar").setTabCompletions("[variablename] [value]");
+
+register("command", (...args) => {
+    sendVar(args[0].toString())
+}).setName("sendvar").setTabCompletions("[variablename]");
+
 function setVar(variable, value) {
     let parsedValue;
-    ChatLib.chat("parsing")
     // Determine the type of the value and parse accordingly
     if (value === "true") {
         parsedValue = true;
@@ -106,5 +112,8 @@ function setVar(variable, value) {
     eval(assignment);
 }
 
-setVar("amogus", "sus")
-ChatLib.chat(amogus)
+function sendVar(variable){
+    let value = eval(variable);
+    if (value) ChatLib.chat(value);
+    else ChatLib.chat("null");
+}

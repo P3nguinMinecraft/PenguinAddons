@@ -3,7 +3,7 @@ import constants from "../utils/constants";
 import RenderLib from "../../RenderLib";
 let foundChests = new Set();
 let openLock = false;
-let tempbool = false;
+let tempbool = settings.boolChestHighlight;
 
 function findChests(radius){
     const PlayerPos = Player.asPlayerMP();
@@ -29,18 +29,15 @@ function findChests(radius){
 }
 
 register("renderWorld", () => {
-    if (tempbool !== settings.boolChestHighlight){ // changed
-        if (settings.boolChestHighlight == false){
-            foundChests.size = 0;
-        }
-        if (settings.boolChestHighlight == true){
-            findChests(settings.scanRadius);
-        }
-        tempbool = settings.boolChestHighlight; // if changed then update it
+    if (tempbool !== settings.boolChestHighlight){
+        if (settings.boolChestHighlight == true) findChests(settings.scanRadius);
+        tempbool = settings.boolChestHighlight;
     }
-    foundChests.forEach(chest => {
-        RenderLib.drawInnerEspBox(chest.x, chest.y, chest.z, 1, 1, 1, 0, 0, 0.5, true); // x y z r g b a phase
-    });
+    if (settings.boolChestHighlight){
+        foundChests.forEach(chest => {
+            RenderLib.drawInnerEspBox(chest.x, chest.y, chest.z, 1, 1, 1, 0, 0, 0.5, true); // x y z r g b a phase
+        });
+    }
 });
 
 register("chat", (message) => {

@@ -25,8 +25,8 @@ register("tick", () => {
             values.balFound = false;
         }
         values.save();
-        if (values.balWidth !== 13.3 && values.balStatus !== "dead"){ // not dead or alive, entity exists but not full size
-            if (values.balWidth == 1.0){
+        if (values.balWidth !== 13.3){ // not alive, entity exists but not full size
+            if (values.balWidth == 1.0 || values.balWidth == 2.0){
                 if (!values.balSpawning1_5Lock){
                     values.balSpawning1_5Lock = true;
                     setTimeout(() => {
@@ -45,6 +45,7 @@ register("tick", () => {
             }
             
             if(tempWidthComparator){
+                ChatLib.chat("comparator")
                 if(tempWidthComparator < values.balWidth){ //bal size increased
                     values.balStatus = "spawning";
                     ChatLib.chat("comparator spawning")
@@ -83,11 +84,11 @@ register("renderOverlay", RenderOverlays);
 function RenderOverlays(){
     if (values.inCH == true){
         //add renders as needed
-        if (values.BalSpawnOverlayToggle == true) BalSpawnOverlay.draw();
-        if (values.bal75OverlayToggle == true) Bal75Overlay.draw();
-        if (values.bal50OverlayToggle == true) Bal50Overlay.draw();
-        if (values.bal33OverlayToggle == true) Bal33Overlay.draw();
-        if (values.balDeathOverlayToggle == true) BalDeathOverlay.draw();
+        if (values.BalSpawnOverlayToggle == true && settings.boolBalSpawn == true) BalSpawnOverlay.draw();
+        if (values.bal75OverlayToggle == true && settings.boolBal75 == true) Bal75Overlay.draw();
+        if (values.bal50OverlayToggle == true && settings.boolBal50 == true) Bal50Overlay.draw();
+        if (values.bal33OverlayToggle == true && settings.boolBal33 == true) Bal33Overlay.draw();
+        if (values.balDeathOverlayToggle == true && settings.boolBalDeath == true) BalDeathOverlay.draw();
         if (values.balStatusHUDToggle == true && settings.boolBalStatusHUD == true) BalStatusHUD.draw();
         if (values.balCoordHUDToggle == true && settings.boolBalCoordHUD == true) BalCoordHUD.draw();
     }
@@ -99,8 +100,8 @@ register("renderWorld", RenderWorld);
 function RenderWorld(){
     if (values.inCH == true){
         //add renders as needed
-        if (values.balSpawningTimerWorldToggle == true) Tessellator.drawString(`${balSpawningTimerSecond} seconds`, values.balSpawnPosX, values.balSpawnPosY, values.balSpawnPosZ, Renderer.WHITE, true, 1.5, true)
-        if (values.balDeadTimerWorldToggle == true) Tessellator.drawString(`${balDeadTimerSecond} seconds`, values.balSpawnPosX, values.balSpawnPosY, values.balSpawnPosZ, Renderer.WHITE, true, 1.5, true)
+        if (values.balSpawningTimerWorldToggle == true && settings.boolBalSpawnTimer == true) Tessellator.drawString(`${balSpawningTimerSecond} seconds`, values.balSpawnPosX, values.balSpawnPosY, values.balSpawnPosZ, Renderer.WHITE, true, 1.5, true)
+        if (values.balDeadTimerWorldToggle == true && settings.boolBalDeadTimer == true) Tessellator.drawString(`${balDeadTimerSecond} seconds`, values.balSpawnPosX, values.balSpawnPosY, values.balSpawnPosZ, Renderer.WHITE, true, 1.5, true)
             // Tessellator.scale
         if (values.balSpawnPosX && values.balSpawnPosY && values.balSpawnPosZ && (settings.boolBalWaypoint = true)) Tessellator.drawString(`Bal ${values.balSpawnDist}m`, values.balSpawnPosX, values.balSpawnPosY, values.balSpawnPosZ, Renderer.WHITE, true, 1.5, true)
     }
@@ -109,79 +110,67 @@ function RenderWorld(){
 register("chat", (message) => {
     //add message triggers here, turn on and off toggle to the render, aswell as updating bal's status for the gui
     if(message.removeFormatting().includes(constants.BalSpawnMessage)){
-        if(settings.boolBalSpawn == true){
-            ChatLib.chat("balspawn")
-            BalSpawnOverlay.setString(settings.txtBalSpawn).setX(Renderer.screen.getWidth()/2).setY(Renderer.screen.getHeight()/2).setScale(5).setColor(settings.colorBalSpawn.getRGB());
-            values.balSpawnOverlayToggle = true;
-            values.balStatus = "spawning";
-            ChatLib.chat("message spawning")
-            values.balHealth = 250;
+        ChatLib.chat("balspawn")
+        BalSpawnOverlay.setString(settings.txtBalSpawn).setX(Renderer.screen.getWidth()/2).setY(Renderer.screen.getHeight()/2).setScale(5).setColor(settings.colorBalSpawn.getRGB()).setAlign("CENTER");
+        values.balSpawnOverlayToggle = true;
+        values.balStatus = "spawning";
+        ChatLib.chat("message spawning")
+        values.balHealth = 200;
+        values.save();
+        setTimeout(() => {
+            values.balSpawnOverlayToggle = false;
             values.save();
-            setTimeout(() => {
-                values.balSpawnOverlayToggle = false;
-                values.save();
-            }, 1500);
-        }
-
-        //start spawning timer
+        }, 1500);
     }
 
     if(message.removeFormatting().includes(constants.Bal75Message)){
-        if(settings.boolBal75 == true){
-            ChatLib.chat("bal75")
-            Bal75Overlay.setString(settings.txtBal75).setX(Renderer.screen.getWidth()/2).setY(Renderer.screen.getHeight()/2).setScale(5).setColor(settings.colorBal75.getRGB());
-            values.bal75OverlayToggle = true;
-            values.balHealth = 187;
+        ChatLib.chat("bal75")
+        Bal75Overlay.setString(settings.txtBal75).setX(Renderer.screen.getWidth()/2).setY(Renderer.screen.getHeight()/2).setScale(5).setColor(settings.colorBal75.getRGB()).setAlign("CENTER");
+        values.bal75OverlayToggle = true;
+        values.balHealth = 150;
+        values.save();
+        setTimeout(() => {
+            values.bal75OverlayToggle = false;
             values.save();
-            setTimeout(() => {
-                values.bal75OverlayToggle = false;
-                values.save();
-            }, 1500);
-        }
+        }, 1500);
     }
 
     if(message.removeFormatting().includes(constants.Bal50Message)){
-        if(settings.boolBal50 == true){
-            ChatLib.chat("bal50")
-            Bal50Overlay.setString(settings.txtBal50).setX(Renderer.screen.getWidth()/2).setY(Renderer.screen.getHeight()/2).setScale(5).setColor(settings.colorBal50.getRGB());
-            values.bal50OverlayToggle = true;
-            values.balHeatlh = 125;
+        ChatLib.chat("bal50")
+        Bal50Overlay.setString(settings.txtBal50).setX(Renderer.screen.getWidth()/2).setY(Renderer.screen.getHeight()/2).setScale(5).setColor(settings.colorBal50.getRGB()).setAlign("CENTER");
+        values.bal50OverlayToggle = true;
+        values.balHeatlh = 100;
+        values.save();
+        setTimeout(() => {
+            values.bal50OverlayToggle = false;
             values.save();
-            setTimeout(() => {
-                values.bal50OverlayToggle = false;
-                values.save();
-            }, 1500);
-        }
+        }, 1500);
     }
 
     if(message.removeFormatting().includes(constants.Bal33Message)){
-        if(settings.boolBal33 == true){
-            ChatLib.chat("bal33")
-            Bal33Overlay.setString(settings.txtBal33).setX(Renderer.screen.getWidth()/2).setY(Renderer.screen.getHeight()/2).setScale(5).setColor(settings.colorBal33.getRGB());
-            values.bal33OverlayToggle = true;
-            values.balHealth = 83;
+        ChatLib.chat("bal33")
+        Bal33Overlay.setString(settings.txtBal33).setX(Renderer.screen.getWidth()/2).setY(Renderer.screen.getHeight()/2).setScale(5).setColor(settings.colorBal33.getRGB()).setAlign("CENTER");
+        values.bal33OverlayToggle = true;
+        values.balHealth = 66;
+        values.save();
+        setTimeout(() => {
+            values.bal33OverlayToggle = false;
             values.save();
-            setTimeout(() => {
-                values.bal33OverlayToggle = false;
-                values.save();
-            }, 1500);
-        }
+        }, 1500);
     }
     
     if(message.removeFormatting().includes(constants.BalDeathMessage)){
-        if(settings.boolBalDeath == true){
-            ChatLib.chat("baldeath")
-            BalDeathOverlay.setString(settings.txtBalDeath).setX(Renderer.screen.getWidth()/2).setY(Renderer.screen.getHeight()/2).setScale(5).setColor(settings.colorBalDeath.getRGB());
-            values.balDeathOverlayToggle = true;
-            values.balHealth = 0;
-            values.balStatus = "dying";
-            ChatLib.chat("message dying")
+        ChatLib.chat("baldeath")
+        BalDeathOverlay.setString(settings.txtBalDeath).setX(Renderer.screen.getWidth()/2).setY(Renderer.screen.getHeight()/2).setScale(5).setColor(settings.colorBalDeath.getRGB());
+        values.balDeathOverlayToggle = true;
+        values.balHealth = 0;
+        values.balStatus = "dying";
+        ChatLib.chat("message dying")
+        values.save();
+        setTimeout(() => {
+            values.balDeathOverlayToggle = false;
             values.save();
-            setTimeout(() => {
-                values.balDeathOverlayToggle = false;
-                values.save();
-            }, 1500);
-        }
+        }, 1500);
     }
 
 }).setCriteria("${message}");

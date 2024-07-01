@@ -42,6 +42,7 @@ import {
             "Death Alert",
             "Death Alert Text",
             "Death Alert Color",
+            "Spawning Timer",
             "Lobby Swapper Default Location",
             "Lobby Swapper Default Swap Location",
             "Powder Chest Highlight",
@@ -152,7 +153,7 @@ class settings{
         description: "Countdown until &4Bal &rcan be damaged.",
         category: "Bal"
     })
-    boolBalTimer = false;
+    boolBalSpawnTimer = false;
 
     @SwitchProperty({
         name: "75 Percent HP Alert",
@@ -237,6 +238,13 @@ class settings{
         category: "Bal"
     })
     colorBalDeath = Color.RED;
+
+    @SwitchProperty({
+        name: "Spawning Timer",
+        description: "Countdown until &4Bal &rstarts spawning.",
+        category: "Bal"
+    })
+    boolBalDeadTimer = false;
 
     @TextProperty({
         name: "Lobby Swapper Default Location",
