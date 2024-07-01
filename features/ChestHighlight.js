@@ -44,7 +44,7 @@ register("chat", (message) => {
     if(message.removeFormatting().includes(constants.ChestFoundMessage)){
         setTimeout(() => {
             if (settings.boolChestHighlight == true) findChests(settings.scanRadius);
-        }, 50);
+        }, 100);
     }
     if(message.removeFormatting().includes(constants.ChestOpenedMessage)){
         if (openLock == false){ // to prevent too much spamming

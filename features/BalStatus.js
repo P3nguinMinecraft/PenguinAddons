@@ -3,6 +3,7 @@ import values from "../utils/values";
 import constants from "../utils/constants";
 
 let tempWidthComparator = null;
+let deadHUD = false
 
 const BalSpawnOverlay = new Text(""); // spawn alert
 const Bal75Overlay = new Text(""); // 75 alert
@@ -17,6 +18,7 @@ register("tick", () => {
         //find bal
         const balEntity = World.getAllEntitiesOfType(Java.type("net.minecraft.entity.monster.EntityMagmaCube").class).find(cube => cube.getWidth().toFixed(1) !== "1.5" && cube.getWidth().toFixed(1) !== "0.0");
         if (balEntity){
+            ChatLib.chat("bal found")
             values.balWidth = balEntity.getWidth().toFixed(1);
             values.balFound = true;
         }
@@ -36,16 +38,17 @@ register("tick", () => {
                 }
             }
             values.save();
-            if ((!values.balSpawnPosX || !values.balSpawnPosY || !values.balSpawnPosZ) && values.balWidth < 12.8 && values.balWidth !== null){
+            if ((!values.balSpawnPosX || !values.balSpawnPosY || !values.balSpawnPosZ) && values.balWidth < 13.3 && values.balWidth !== null){
                 ChatLib.chat("&b[&cBal&6Addons&b]&r &4Bal&r &5spawn&r (dead bal) has been identified!");
-                values.balSpawnPosX = balEntity.getX();
-                values.balSpawnPosY = balEntity.getY();
-                values.balSpawnPosZ = balEntity.getZ();
-                ChatLib.chat(`&b[&cBal&6Addons&b]&r &5balPos&r set as ${values.balSpawnPosX}, ${values.balSpawnPosY}, ${values.balSpawnPosZ}`);
+                setTimeout(() => {
+                    values.balSpawnPosX = balEntity.getX();
+                    values.balSpawnPosY = balEntity.getY();
+                    values.balSpawnPosZ = balEntity.getZ();
+                    ChatLib.chat(`&b[&cBal&6Addons&b]&r &5balPos&r set as ${values.balSpawnPosX}, ${values.balSpawnPosY}, ${values.balSpawnPosZ}`);
+                }, 500)
             }
             
             if(tempWidthComparator){
-                ChatLib.chat("comparator")
                 if(tempWidthComparator < values.balWidth){ //bal size increased
                     values.balStatus = "spawning";
                     ChatLib.chat("comparator spawning")
@@ -60,12 +63,15 @@ register("tick", () => {
             else tempWidthComparator = values.balWidth;
         }
         if (values.balWidth == 13.3){
-            if (values.balStatus !== "alive") values.balStatus = "alive";
+            if (values.balStatus !== "alive"){
+                values.balStatus = "alive";
+                ChatLib.chat("width alive")
+            }
             values.balAlivePosX = balEntity.getX().toFixed(2);
             values.balAlivePosY = balEntity.getY().toFixed(2);
             values.balAlivePosZ = balEntity.getZ().toFixed(2);
             BalCoordHUD.setString(`Bal Coordinates\nX: ${values.balAlivePosX}\nY: ${values.balAlivePosY}\nZ: ${values.balAlivePosZ}`).setX(values.BalCoordHUDX).setY(values.BalCoordHUDY).setScale(values.balCoordHUDScale).setColor(settings.colorBalCoordHUD.getRGB())
-            ChatLib.chat("width alive")
+    
         }
         if(!values.balWidth && !values.balSpawning1_5Lock && values.balStatus !== "dead"){
             values.balStatus = "dead";
@@ -101,7 +107,7 @@ function RenderWorld(){
     if (values.inCH == true){
         //add renders as needed
         if (values.balSpawningTimerWorldToggle == true && settings.boolBalSpawnTimer == true) Tessellator.drawString(`${balSpawningTimerSecond} seconds`, values.balSpawnPosX, values.balSpawnPosY, values.balSpawnPosZ, Renderer.WHITE, true, 1.5, true)
-        if (values.balDeadTimerWorldToggle == true && settings.boolBalDeadTimer == true) Tessellator.drawString(`${balDeadTimerSecond} seconds`, values.balSpawnPosX, values.balSpawnPosY, values.balSpawnPosZ, Renderer.WHITE, true, 1.5, true)
+        if (values.balDeadTimerWorldToggle == true && settings.boolBalDeadTimer == true) Tessellator.drawString(`${values.balDeadTimerSecond} seconds`, values.balSpawnPosX, values.balSpawnPosY, values.balSpawnPosZ, Renderer.WHITE, true, 1.5, true)
             // Tessellator.scale
         if (values.balSpawnPosX && values.balSpawnPosY && values.balSpawnPosZ && (settings.boolBalWaypoint = true)) Tessellator.drawString(`Bal ${values.balSpawnDist}m`, values.balSpawnPosX, values.balSpawnPosY, values.balSpawnPosZ, Renderer.WHITE, true, 1.5, true)
     }
@@ -188,7 +194,7 @@ register("tick", () => {
         values.save();
         BalStatusHUD.setString(`Bal Status: Alive\nHP Estimate: ${values.balHealth} HP`).setX(values.BalStatusHUDX).setY(values.BalStatusHUDY).setScale(values.BalStatusHUDScale).setColor(settings.colorBalStatusHUD.getRGB()); 
     }
-    else if (values.balStatus == "dead"){
+    else if (values.balStatus == "dead" && deadHUD == true){
         values.BalStatusHUDToggle = true;
         values.save();
         BalStatusHUD.setString(`Bal Status: Dead\nTimer: ${values.balDeadTimerSecond} sec`).setX(values.BalStatusHUDX).setY(values.BalStatusHUDY).setScale(values.BalStatusHUDScale).setColor(settings.colorBalStatusHUD.getRGB()); 
@@ -197,4 +203,11 @@ register("tick", () => {
         values.BalStatusHUDToggle = false;
         values.save();
     }
+})
+
+register("worldLoad", () => {
+    deadHUD = false
+    setTimeout(() => {
+        deadHUD = true
+    },3000)
 })
