@@ -3,6 +3,7 @@ import settings from "../utils/config";
 import constants from "../utils/constants";
 let foundChests = new Set();
 let tempbool = settings.boolChestHighlight;
+let lookTarget = null;
 
 function findChests(radius){
     const PlayerPos = Player.asPlayerMP();
@@ -37,8 +38,14 @@ register("renderWorld", () => {
         tempbool = settings.boolChestHighlight;
     }
     if (settings.boolChestHighlight){
-        foundChests.forEach(chest => {
-            RenderLib.drawInnerEspBox(chest.x, chest.y, chest.z, 0.875, 0.875, 0.875, 0, 0, 1, true); // x y z r g b a phase
+        if (Player.lookingAt() instanceof Block)
+            lookTarget = Player.lookingAt();
+        else lookTarget = null;
+        foundChests.forEach(chest => { null;
+            if (lookTarget && chest.x == lookTarget.x + 0.5 && chest.y == lookTarget.y && chest.z == lookTarget.z + 0.5){
+                RenderLib.drawInnerEspBox(chest.x, chest.y, chest.z, 0.875, 0.875, 0, 1, 0, 1, true); // x y z width height r g b a phase, thats green btw
+            }
+            else RenderLib.drawInnerEspBox(chest.x, chest.y, chest.z, 0.875, 0.875, 1, 0, 0, 1, true); // x y z width height r g b a phase, thats red btw
         });
     }
 });
