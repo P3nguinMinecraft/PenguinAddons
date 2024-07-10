@@ -1,16 +1,18 @@
-console.log("[BalAddons] Loading config")
+console.log("[PenguinAddons] Loading config")
 import "./utils/config";
-console.log("[BalAddons] Loading commands");
+console.log("[PenguinAddons] Loading commands");
 import "./utils/commands";
-console.log("[BalAddons] Loading worldLoad");
+console.log("[PenguinAddons] Loading worldLoad");
 import "./utils/worldLoad";
-console.log("[BalAddons] Loading LobbySwap");
+console.log("[PenguinAddons] Loading LobbySwap");
 import "./features/LobbySwap";
-console.log("[BalAddons] Loading BalStatus");
+console.log("[PenguinAddons] Loading BalStatus");
 import "./features/BalStatus";
-console.log("[BalAddons] Loading BalTimer");
+console.log("[PenguinAddons] Loading BalTimer");
 import "./features/BalTimer";
-console.log("[BalAddons] Loading ChestHighlight");
+console.log("[PenguinAddons] Loading ChestHighlight");
 import "./features/ChestHighlight";
-console.log("[BalAddons] Loaded!");
-ChatLib.chat("&b[&cBal&6Addons&b]&r Loaded!");
+console.log("[PenguinAddons] Loading PowderMining");
+import "./features/PowderMining";
+console.log("[PenguinAddons] Loaded!");
+ChatLib.chat("&b[&cPenguin&6Addons&b]&r Loaded!");

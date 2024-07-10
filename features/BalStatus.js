@@ -1,6 +1,6 @@
 import settings from "../utils/config";
-import values from "../utils/values";
 import constants from "../utils/constants";
+import values from "../utils/values";
 
 let tempWidthComparator = null;
 let deadHUD = false
@@ -16,14 +16,17 @@ const BalCoordHUD = new Text(""); // coord HUD
 register("tick", () => {
     if (values.inCH == true){
         //find bal
-        const balEntity = World.getAllEntitiesOfType(Java.type("net.minecraft.entity.monster.EntityMagmaCube").class).find(cube => cube.getWidth().toFixed(1) !== "1.5" && cube.getWidth().toFixed(1) !== "0.0");
+        let balEntity = World.getAllEntitiesOfType(Java.type("net.minecraft.entity.monster.EntityMagmaCube").class).find(cube => cube.getWidth().toFixed(1) !== "1.5" && cube.getWidth().toFixed(1) !== "0");
         if (balEntity){
-            ChatLib.chat("bal found")
+            ChatLib.chat(balEntity.getWidth().toFixed(1));
             values.balWidth = balEntity.getWidth().toFixed(1);
             values.balFound = true;
         }
         else {
-            values.balWidth = null;
+            if (values.balWidth){
+                values.balWidth = null;
+                ChatLib.chat("width set null");
+            }
             values.balFound = false;
         }
         values.save();
@@ -39,12 +42,12 @@ register("tick", () => {
             }
             values.save();
             if ((!values.balSpawnPosX || !values.balSpawnPosY || !values.balSpawnPosZ) && values.balWidth < 13.3 && values.balWidth !== null){
-                ChatLib.chat("&b[&cBal&6Addons&b]&r &4Bal&r &5spawn&r (dead bal) has been identified!");
+                ChatLib.chat("&b[&cPenguin&6Addons&b]&r &4Bal&r &5spawn&r (dead bal) has been identified!");
                 setTimeout(() => {
                     values.balSpawnPosX = balEntity.getX();
                     values.balSpawnPosY = balEntity.getY();
                     values.balSpawnPosZ = balEntity.getZ();
-                    ChatLib.chat(`&b[&cBal&6Addons&b]&r &5balPos&r set as ${values.balSpawnPosX}, ${values.balSpawnPosY}, ${values.balSpawnPosZ}`);
+                    ChatLib.chat(`&b[&cPenguin&6Addons&b]&r &5balPos&r set as ${values.balSpawnPosX}, ${values.balSpawnPosY}, ${values.balSpawnPosZ}`);
                 }, 500)
             }
             

@@ -1,8 +1,7 @@
+import RenderLib from "../../RenderLib";
 import settings from "../utils/config";
 import constants from "../utils/constants";
-import RenderLib from "../../RenderLib";
 let foundChests = new Set();
-let openLock = false;
 let tempbool = settings.boolChestHighlight;
 
 function findChests(radius){
@@ -28,6 +27,10 @@ function findChests(radius){
     foundChests = new Set([...foundChests, ...currentChests]);
 }
 
+export function resetChests(){
+    foundChests.clear();
+}
+
 register("renderWorld", () => {
     if (tempbool !== settings.boolChestHighlight){
         if (settings.boolChestHighlight == true) findChests(settings.scanRadius);
@@ -35,24 +38,23 @@ register("renderWorld", () => {
     }
     if (settings.boolChestHighlight){
         foundChests.forEach(chest => {
-            RenderLib.drawInnerEspBox(chest.x, chest.y, chest.z, 1, 1, 1, 0, 0, 0.5, true); // x y z r g b a phase
+            RenderLib.drawInnerEspBox(chest.x, chest.y, chest.z, 0.875, 0.875, 0.875, 0, 0, 1, true); // x y z r g b a phase
         });
     }
 });
 
-register("chat", (message) => {
-    if(message.removeFormatting().includes(constants.ChestFoundMessage)){
+register("chat", (message, event) => {
+    if (message.removeFormatting().includes(constants.ChestFoundMessage)){
         setTimeout(() => {
             if (settings.boolChestHighlight == true) findChests(settings.scanRadius);
         }, 100);
     }
-    if(message.removeFormatting().includes(constants.ChestOpenedMessage)){
-        if (openLock == false){ // to prevent too much spamming
-            openLock = true;
-            setTimeout(() => {
-                openLock = false;
-                if (settings.boolChestHighlight == true) findChests(settings.scanRadius);
-            }, 500);
-        }   
+
+    if (message.removeFormatting().includes(constants.ChestOpenedMessage1) || message.removeFormatting().includes(constants.ChestOpenedMessage2)){
+        if (settings.boolChestHighlight == true) findChests(settings.scanRadius);
     }
 }).setCriteria("${message}");
+
+register("step", () => {
+    if (settings.boolLoopChestHighlight == true) findChests(settings.scanRadius);
+}).setDelay(1);

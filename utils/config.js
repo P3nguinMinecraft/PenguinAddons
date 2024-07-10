@@ -11,7 +11,7 @@ import {
     @DecimalSliderProperty, 
     Color
 } from "../../Vigilance/index";
-@Vigilant("BalAddons","BalAddons", {
+@Vigilant("PenguinAddons","PenguinAddons", {
     getCategoryComparator: () => (a, b) => {
         const categories = ['Main','Bal','Lobby Swapper','Powder Mining'];
         return categories.indexOf(a.name) - categories.indexOf(b.name);
@@ -46,7 +46,13 @@ import {
             "Lobby Swapper Default Location",
             "Lobby Swapper Default Swap Location",
             "Powder Chest Highlight",
-            "Scan Radius"
+            "Loop Scan",
+            "Scan Radius",
+            "Clear Powder Chests",
+            "Compact Powder Messages",
+            "Show Flawless Gemstones",
+            "Show Goblin Eggs",
+            "Show Robot Parts"
         ];
         return names.indexOf(a.attributesExt.name) - names.indexOf(b.attributesExt.name);
     }
@@ -68,8 +74,12 @@ class settings{
         this.addDependency("33 Percent Alert Color","33 Percent HP Alert");
         this.addDependency("Death Alert Text","Death Alert");
         this.addDependency("Death Alert Color","Death Alert");
+        this.addDependency("Loop Scan", "Powder Chest Highlight");
         this.addDependency("Scan Radius", "Powder Chest Highlight");
-        this.setCategoryDescription("Main","Home page for BalAddons");
+        this.addDependency("Show Flawless Gemstones", "Compact Powder Messages");
+        this.addDependency("Show Goblin Eggs", "Compact Powder Messages");
+        this.addDependency("Show Robot Parts", "Compact Powder Messages");
+        this.setCategoryDescription("Main","Home page for PenguinAddons");
         this.setCategoryDescription("Bal", "Stuff about Bal");
         this.setCategoryDescription("Lobby Swapper", "Settings for /lobbyswap Command");
         this.setCategoryDescription("Powder Mining", "QOL Stuff for Powder Mining");
@@ -84,7 +94,7 @@ class settings{
         })
     gui(){
         Client.currentGui.close()
-        ChatLib.simulateChat("[BalAddons] Overlay Config Gui")
+        ChatLib.simulateChat("[PenguinAddons] Overlay Config Gui")
     }
 
     @SwitchProperty({
@@ -264,10 +274,17 @@ class settings{
     
     @SwitchProperty({
         name: "Powder Chest Highlight",
-        description: "Highlights powder chests when found.",
+        description: "Highlights powder chests when uncovered.",
         category: "Powder Mining"
     })
     boolChestHighlight = false;
+
+    @SwitchProperty({
+        name: "Loop Scan",
+        description: "Scans for powder chests every 1 second in addition to scanning when uncovered. Useful when your client is really laggy. More resource-intensive than above.",
+        category: "Powder Mining"
+    })
+    boolLoopChestHighlight = false;
 
     @SliderProperty({
         name: "Scan Radius",
@@ -277,5 +294,44 @@ class settings{
         category: "Powder Mining"
     })
     scanRadius = 0;
+
+    @ButtonProperty({
+        name: "Clear Powder Chests",
+        description: "Click here to clear all stored chest data for Powder Chest Highlight.",
+        category: "Powder Mining",
+        placeholder: "Click!"
+        })
+    clearchests(){
+        ChatLib.simulateChat("[PenguinAddons] Cleared Powder Chests")
+    }
+
+    @SwitchProperty({
+        name: "Compact Powder Messages",
+        description: "Compacts powder messages that appear when you open a chest.",
+        category: "Powder Mining"
+    })
+    boolCompactPowder = false;
+
+    @SwitchProperty({
+        name: "Show Flawless Gemstones",
+        description: "Shows flawless gemstones in the compacted message.",
+        category: "Powder Mining"
+    })
+    boolCompactFlawless = false;
+
+    @SwitchProperty({
+        name: "Show Goblin Eggs",
+        description: "Shows goblin eggs in the compacted message.",
+        category: "Powder Mining"
+    })
+    boolCompactEgg = false;
+
+    @SwitchProperty({
+        name: "Show Robot Parts",
+        description: "Shows robot parts in the compacted message.",
+        category: "Powder Mining"
+    })
+    boolCompactRobot = false;
+
 }
 export default new settings();

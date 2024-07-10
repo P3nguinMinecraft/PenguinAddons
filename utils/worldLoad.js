@@ -1,16 +1,17 @@
 import values from "./values";
+import { resetChests } from "../features/ChestHighlight";
 register("worldLoad", () => {
     setTimeout(() => {
         //if (values.area.includes("Crystal Hollows")){ //apparently area is the biomes not "Crystal Hollows"
         if (TabList.getNames().join("").includes("Crystal Hollows")){
             values.inCH = true
-            ChatLib.chat("&b[&cBal&6Addons&b]&r You are in the &eCrystal Hollows&r. &4Bal&r features enabled.")
+            ChatLib.chat("&b[&cPenguin&6Addons&b]&r You are in the &eCrystal Hollows&r. &4Bal&r features enabled.")
         }
         else values.inCH = false
         values.save();
     },3000)
     if(values.tempswap){
-        console.log(`[BalAddons] Rewarping to ${values.tempswap} in 3 seconds.`);
+        console.log(`[PenguinAddons] Rewarping to ${values.tempswap} in 3 seconds.`);
         setTimeout(() => {
             ChatLib.command(`warp ${values.tempswap}`);
             values.tempswap = null;
@@ -52,5 +53,7 @@ register("worldLoad", () => {
     values.balDeadHUDToggle = false;
 
     values.save();
-    console.log("[BalAddons] Registered WorldLoad, variables reset");
+
+    resetChests();
+    console.log("[PenguinAddons] Registered WorldLoad, variables reset");
 })

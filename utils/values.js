@@ -1,6 +1,6 @@
 import PogObject from "../../PogData";
 
-const values = new PogObject("BalAddons", {
+const values = new PogObject("PenguinAddons", {
     version: "0.0.2",
     balStatus: null,
     balFound: null,

@@ -1,26 +1,27 @@
+import { resetChests } from "../features/ChestHighlight"
+import lobbySwap from "../features/LobbySwap"
 import settings from "./config"
 import moveOverlay from "./moveOverlay"
 import values from "./values"
-import lobbySwap from "../features/LobbySwap"
 register("command", (...para) => {
-    const bahelp = new TextComponent("&b[&cBal&6Addons&b]&r &c/baladdons &r&e&oHover for more details.").setHoverValue("&r&4Command: &7&o&n/baladdons &eAliases: &7&o&n/ba, /bal, /baladdon. &bProper use is &7&o&n'/baladdons &a&o&n(parameter)'. &6Parameter: &8Tab for all possible parameters. &dNothing/Help: &7Opens this help page. &dConfig: &7Opens config. &dGUI: &7Opens GUI config. &dValues: &7Dumps all values for debug purposes. &dVersion: &7Prints module version.");
-    const lshelp = new TextComponent("&b[&cBal&6Addons&b]&r &c/lobbyswap &r&e&oHover for more details.").setHoverValue("&r&4Command: &7&o&n/lobbyswap &eAliases: &7&o&n/ls, /lswap, /swap, /lobbyhop, /lh. &bProper use is &7&o&n'/lobbyswap &a&o&n(location) (swap location)'. &6Location: &8Skyblock Island you want to lobby hop in. &dSwap Location: &8Skyblock Island you want to use as a middleman. &4Both Location and Swap Location need to be unlocked travel scrolls (or default) that is compatible with &7&o/warp &c&o{name}. &8Use 'name' in the command. Exp: Switching crystal hollows lobby and using hub as a middleman: &7&o/lobbyswap &ach hub");
+    const bahelp = new TextComponent("&b[&cPenguin&6Addons&b]&r &c/penguinaddons &r&e&oHover for more details.").setHoverValue("&r&4Command: &7&o&n/penguinaddons &eAliases: &7&o&n/pa, /penguin, /penguinaddon. &bProper use is &7&o&n'/penguinaddons &a&o&n(parameter)'. &6Parameter: &8Tab for all possible parameters. &dNothing/Help: &7Opens this help page. &dConfig: &7Opens config. &dGUI: &7Opens GUI config. &dValues: &7Dumps all values for debug purposes. &dVersion: &7Prints module version.");
+    const lshelp = new TextComponent("&b[&cPenguin&6Addons&b]&r &c/lobbyswap &r&e&oHover for more details.").setHoverValue("&r&4Command: &7&o&n/lobbyswap &eAliases: &7&o&n/ls, /lswap, /swap, /lobbyhop, /lh. &bProper use is &7&o&n'/lobbyswap &a&o&n(location) (swap location)'. &6Location: &8Skyblock Island you want to lobby hop in. &dSwap Location: &8Skyblock Island you want to use as a middleman. &4Both Location and Swap Location need to be unlocked travel scrolls (or default) that is compatible with &7&o/warp &c&o{name}. &8Use 'name' in the command. Exp: Switching crystal hollows lobby and using hub as a middleman: &7&o/lobbyswap &ach hub");
     if (para[0] == null) {
-        ChatLib.chat("&b[&cBal&6Addons&b]&r &eCommand Help")
+        ChatLib.chat("&b[&cPenguin&6Addons&b]&r &eCommand Help")
         ChatLib.chat(bahelp)
         ChatLib.chat(lshelp)
         return;
     }
     switch (para[0].toString().toLowerCase()) {
         case "config":
-            ChatLib.chat('&b[&cBal&6Addons&b]&r Opening BalAddons Config Gui...')
+            ChatLib.chat('&b[&cPenguin&6Addons&b]&r Opening PenguinAddons Config Gui...')
             settings.openGUI();
             break;
         case "gui":
             moveOverlay();
             break;
         case "help":
-            ChatLib.chat("&b[&cBal&6Addons&b]&r &eCommand Help")
+            ChatLib.chat("&b[&cPenguin&6Addons&b]&r &eCommand Help")
             ChatLib.chat(bahelp)
             ChatLib.chat(lshelp)
             break;
@@ -62,13 +63,13 @@ register("command", (...para) => {
             ChatLib.chat(output);
             break;
         case "version":
-            ChatLib.chat(`&b[&cBal&6Addons&b]&r &3Version: &d${values.version}`)
+            ChatLib.chat(`&b[&cPenguin&6Addons&b]&r &3Version: &d${values.version}`)
             break;
         default: 
-            ChatLib.chat("&b[&cBal&6Addons&b]&r Parameters not supported.")
+            ChatLib.chat("&b[&cPenguin&6Addons&b]&r Parameters not supported.")
             break;
     }
-}).setName("baladdons").setAliases("ba","bal","baladdon").setTabCompletions("config","gui","help","values","version");
+}).setName("penguinaddons").setAliases("pa","penguin","penguinaddon").setTabCompletions("config","gui","help","values","version");
 
 register("command", (...args) => {
     if (args[0] && args[1]) lobbySwap(args[0],args[1])
@@ -76,17 +77,28 @@ register("command", (...args) => {
     else if (!args[0]) lobbySwap()
 }).setName("lobbyswap").setAliases("ls", "lswap", "swap", "lobbyhop", "lh").setTabCompletions("(location)(swap)");
 
-register("chat", (message, event) => {
-    if (message.toString().includes("[BalAddons] Overlay Config Gui")){
-        cancel(event);
-        moveOverlay();
-    }
-}).setCriteria("${message}");
-
 register("command", (...args) => {
     setVar(args[0].toString(), args[1].toString())
     ChatLib.chat(`Set ${args[0].toString()} to ${args[1].toString()}`)
 }).setName("setvar").setTabCompletions("[variablename] [value]");
+
+
+register("chat", (message, event) => {
+    if (message.toString().includes("[PenguinAddons] Overlay Config Gui")){
+        cancel(event);
+        moveOverlay();
+    }
+    if (message.toString().includes("[PenguinAddons] Cleared Powder Chests")){
+        cancel(event);
+        ChatLib.chat("&b[&cPenguin&6Addons&b]&r Cleared Powder Chests!")
+        resetChests();
+    }
+}).setCriteria("${message}");
+
+
+
+
+
 
 register("command", (...args) => {
     sendVar(args[0].toString())
