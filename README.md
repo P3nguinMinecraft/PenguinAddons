@@ -22,7 +22,7 @@
 2. Go to your .minecraft folder
 3. Navigate to config > ChatTriggers > modules
 4. Download (clone) this GitHub and unzip it
-5. Put the folder named "BalAddons" into the modules folder
+5. Put the folder named "PenguinAddons" into the modules folder
 6. If the game is currently open, run `/ct load` or restart the game.
 
 # Features
