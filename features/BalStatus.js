@@ -17,15 +17,16 @@ register("tick", () => {
     if (values.inCH == true){
         //find bal
         let balEntity = World.getAllEntitiesOfType(Java.type("net.minecraft.entity.monster.EntityMagmaCube").class).find(cube => cube.getWidth().toFixed(1) !== "1.5" && cube.getWidth().toFixed(1) !== "0");
-        if (balEntity){
-            ChatLib.chat(balEntity.getWidth().toFixed(1));
+        if (balEntity){ 
+            console.log(balEntity.getWidth().toFixed(1));
             values.balWidth = balEntity.getWidth().toFixed(1);
             values.balFound = true;
+            console.log(`${balEntity.getX()} ${balEntity.getY()} ${balEntity.getZ()}`)
         }
         else {
             if (values.balWidth){
                 values.balWidth = null;
-                ChatLib.chat("width set null");
+                console.log("width set null");
             }
             values.balFound = false;
         }
@@ -54,12 +55,12 @@ register("tick", () => {
             if(tempWidthComparator){
                 if(tempWidthComparator < values.balWidth){ //bal size increased
                     values.balStatus = "spawning";
-                    ChatLib.chat("comparator spawning")
+                    console.log(`comparator spawning, temp is ${tempWidthComparator} and width is ${values.balWidth}`)
                     tempWidthComparator = values.balWidth;
                 }
                 else if(tempWidthComparator > values.balWidth){ //bal size decreased
                     values.balStatus = "dying";
-                    ChatLib.chat("comparator dying")
+                    console.log(`comparator dying, temp is ${tempWidthComparator} and width is ${values.balWidth}`)
                     tempWidthComparator = values.balWidth;
                 }
             }
@@ -68,7 +69,7 @@ register("tick", () => {
         if (values.balWidth == 13.3){
             if (values.balStatus !== "alive"){
                 values.balStatus = "alive";
-                ChatLib.chat("width alive")
+                console.log("width alive")
             }
             values.balAlivePosX = balEntity.getX().toFixed(2);
             values.balAlivePosY = balEntity.getY().toFixed(2);
@@ -78,7 +79,7 @@ register("tick", () => {
         }
         if(!values.balWidth && !values.balSpawning1_5Lock && values.balStatus !== "dead"){
             values.balStatus = "dead";
-            ChatLib.chat("width dead")
+            console.log("width dead")
         }
         if (values.balSpawnPosX && values.balSpawnPosY && values.balSpawnPosZ){
             values.balSpawnDist = Player.asPlayerMP().distanceTo(values.balSpawnPosX, values.balSpawnPosY, values.balSpawnPosZ).toFixed(1);
@@ -119,11 +120,11 @@ function RenderWorld(){
 register("chat", (message) => {
     //add message triggers here, turn on and off toggle to the render, aswell as updating bal's status for the gui
     if(message.removeFormatting().includes(constants.BalSpawnMessage)){
-        ChatLib.chat("balspawn")
+        console.log("balspawn")
         BalSpawnOverlay.setString(settings.txtBalSpawn).setX(Renderer.screen.getWidth()/2).setY(Renderer.screen.getHeight()/2).setScale(5).setColor(settings.colorBalSpawn.getRGB()).setAlign("CENTER");
         values.balSpawnOverlayToggle = true;
         values.balStatus = "spawning";
-        ChatLib.chat("message spawning")
+        console.log("message spawning")
         values.balHealth = 200;
         values.save();
         setTimeout(() => {
@@ -133,7 +134,7 @@ register("chat", (message) => {
     }
 
     if(message.removeFormatting().includes(constants.Bal75Message)){
-        ChatLib.chat("bal75")
+        console.log("bal75")
         Bal75Overlay.setString(settings.txtBal75).setX(Renderer.screen.getWidth()/2).setY(Renderer.screen.getHeight()/2).setScale(5).setColor(settings.colorBal75.getRGB()).setAlign("CENTER");
         values.bal75OverlayToggle = true;
         values.balHealth = 150;
@@ -145,7 +146,7 @@ register("chat", (message) => {
     }
 
     if(message.removeFormatting().includes(constants.Bal50Message)){
-        ChatLib.chat("bal50")
+        console.log("bal50")
         Bal50Overlay.setString(settings.txtBal50).setX(Renderer.screen.getWidth()/2).setY(Renderer.screen.getHeight()/2).setScale(5).setColor(settings.colorBal50.getRGB()).setAlign("CENTER");
         values.bal50OverlayToggle = true;
         values.balHeatlh = 100;
@@ -157,7 +158,7 @@ register("chat", (message) => {
     }
 
     if(message.removeFormatting().includes(constants.Bal33Message)){
-        ChatLib.chat("bal33")
+        console.log("bal33")
         Bal33Overlay.setString(settings.txtBal33).setX(Renderer.screen.getWidth()/2).setY(Renderer.screen.getHeight()/2).setScale(5).setColor(settings.colorBal33.getRGB()).setAlign("CENTER");
         values.bal33OverlayToggle = true;
         values.balHealth = 66;
@@ -169,12 +170,12 @@ register("chat", (message) => {
     }
     
     if(message.removeFormatting().includes(constants.BalDeathMessage)){
-        ChatLib.chat("baldeath")
+        console.log("baldeath")
         BalDeathOverlay.setString(settings.txtBalDeath).setX(Renderer.screen.getWidth()/2).setY(Renderer.screen.getHeight()/2).setScale(5).setColor(settings.colorBalDeath.getRGB());
         values.balDeathOverlayToggle = true;
         values.balHealth = 0;
         values.balStatus = "dying";
-        ChatLib.chat("message dying")
+        console.log("message dying")
         values.save();
         setTimeout(() => {
             values.balDeathOverlayToggle = false;

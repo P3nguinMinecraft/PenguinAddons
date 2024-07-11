@@ -1,5 +1,6 @@
 import { resetChests } from "../features/ChestHighlight"
 import lobbySwap from "../features/LobbySwap"
+import { resetCompact } from "../features/PowderMining"
 import settings from "./config"
 import moveOverlay from "./moveOverlay"
 import values from "./values"

@@ -324,7 +324,7 @@ class settings{
 
     @SwitchProperty({
         name: "Highlight Through Walls",
-        description: "The highlight can be seen through blocks.",
+        description: "The highlight can be seen through blocks. Turning it off also makes the chests look like villagers.",
         category: "Powder Mining",
         subcategory: "Powder Chests"
     })

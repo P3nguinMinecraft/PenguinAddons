@@ -5,6 +5,9 @@ import values from "../utils/values";
 let foundChests = new Set();
 let tempbool = settings.boolChestHighlight;
 let lookTarget = null;
+let highlightWidth = 0;
+let highlightHeight = 0;
+let highlightOffset = 0;
 
 function findChests(radius){
     const PlayerPos = Player.asPlayerMP();
@@ -34,6 +37,16 @@ export function resetChests(){
 }
 
 register("renderWorld", () => {
+    if (settings.boolChestHighlightPhase == true){
+        highlightWidth = 0.875;
+        highlightHeight = 0.875;
+        highlightOffset = 0;
+    }
+    else {
+        highlightWidth = 0.88;
+        highlightHeight = 0.95;
+        highlightOffset = 0.05
+    }
     if (tempbool !== settings.boolChestHighlight){
         if (settings.boolChestHighlight == true) findChests(settings.scanRadius);
         tempbool = settings.boolChestHighlight;
@@ -44,9 +57,9 @@ register("renderWorld", () => {
         else lookTarget = null;
         foundChests.forEach(chest => { null;
             if (lookTarget && chest.x == lookTarget.x + 0.5 && chest.y == lookTarget.y && chest.z == lookTarget.z + 0.5){
-                RenderLib.drawInnerEspBox(chest.x, chest.y, chest.z, 0.875, 0.875, 0, 1, 0, 1, settings.boolChestHighlightPhase); // x y z width height r g b a phase, thats green btw
+                RenderLib.drawInnerEspBox(chest.x, chest.y - highlightOffset, chest.z, highlightWidth, highlightHeight, 0, 1, 0, 1, settings.boolChestHighlightPhase); // x y z width height r g b a phase, thats green btw
             }
-            else RenderLib.drawInnerEspBox(chest.x, chest.y, chest.z, 0.875, 0.875, 1, 0, 0, 1, settings.boolChestHighlightPhase); // x y z width height r g b a phase, thats red btw
+            else RenderLib.drawInnerEspBox(chest.x, chest.y - highlightOffset, chest.z, highlightWidth, highlightHeight, 1, 0, 0, 1, settings.boolChestHighlightPhase); // x y z width height r g b a phase, thats red btw
         });
     }
 });

@@ -5,7 +5,7 @@ register("worldLoad", () => {
         //if (values.area.includes("Crystal Hollows")){ //apparently area is the biomes not "Crystal Hollows"
         if (TabList.getNames().join("").includes("Crystal Hollows")){
             values.inCH = true;
-            ChatLib.chat("&b[&cPenguin&6Addons&b]&r You are in the &eCrystal Hollows&r. &4Bal&r features enabled.");
+            console.log("[PenguinAddons] You are in the Crystal Hollows. Bal features enabled.");
             if (TabList.getNames().join("").includes("2x Powder")){
                 ChatLib.chat("&b[&cPenguin&6Addons&b]&r &32x Powder!");
                 values.doublePowder = true;

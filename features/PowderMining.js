@@ -5,7 +5,7 @@ import values from "../utils/values";
 const regex = /x(\d+(,\d+)?)/;
 const flawlessRegex = /Flawless (\w+) Gemstone/;
 
-let openCheck = false;
+let tempSwitch = settings.boolCompactPowder;
 let deleteMsg = false;
 let treasures = {};
 
@@ -20,10 +20,6 @@ register("chat", (message, event) => {
         else amount = 1;
     }
 
-    if (msg.includes(constants.ChestOpenedMessage1) || msg.includes(constants.ChestOpenedMessage2)){
-        openCheck = true;
-        setTimeout(() => {openCheck = false;}, 100);
-    }
     if (msg.includes(constants.PowderChestMessageLine)){
         if (settings.boolCompactPowder == true){
             if (deleteMsg == false){
@@ -99,49 +95,42 @@ register("chat", (message, event) => {
 
 function sendCompactMessage(){
     let compactMessage = "&eYou received &r";
-    let hasTreasures = false;
     let treasureCount = 0;
 
     // Mithril Powder
     if (treasures["Mithril Powder&r"]) {
         compactMessage += `${treasures["Mithril Powder&r"]} Mithril Powder&r`;
         treasureCount++;
-        hasTreasures = true;
     }
 
     // Gemstone Powder
     if (treasures["Gemstone Powder&r"]) {
-        if (treasureCount > 0 && hasTreasures) {
+        if (treasureCount > 0) {
             compactMessage += "&e and &r";
         }
         compactMessage += `${treasures["Gemstone Powder&r"]} Gemstone Powder&r`;
         treasureCount++;
-        hasTreasures = true;
     }
 
     // Other Crap
     for (let treasure in treasures) {
         if (treasure !== "Mithril Powder&r" && treasure !== "Gemstone Powder&r") {
-            if (treasureCount > 0 && hasTreasures) {
+            if (treasureCount > 0) {
                 compactMessage += "&e, &r";
             }
             compactMessage += `${treasures[treasure]} ${treasure}`;
             treasureCount++;
-            hasTreasures = true;
         }
-    }
-
-    // Apply 2x Message
-    if ((treasures["Mithril Powder&r"] || treasures["Gemstone Powder&r"]) && values.doublePowder == true) {
-        if (treasureCount > 0 && hasTreasures) {
-            compactMessage += "&e and &r";
-        }
-        compactMessage += "&3 (2x Powder)&r";
     }
 
     compactMessage += "&e. &r";
 
-    if (hasTreasures) {
+    // Apply 2x Message
+    if ((treasures["Mithril Powder&r"] || treasures["Gemstone Powder&r"]) && values.doublePowder == true) {
+        compactMessage += "&3 (2x Powder)&r";
+    }
+
+    if (treasureCount > 0) {
         ChatLib.chat(compactMessage);
     }
 
@@ -158,4 +147,10 @@ register("step", () =>{
         else values.doublePowder = false;
     }
     values.save();
+
+    if (tempSwitch !== settings.boolCompactPowder){
+        if (settings.boolCompactPowder == true) deleteMsg = false;
+        tempSwitch = settings.boolCompactPowder;
+    }
+    
 }).setDelay("1");
