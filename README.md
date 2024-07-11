@@ -79,6 +79,7 @@
 # Dependencies
 #### PogData: Data storage
 #### Vigilance: Config GUI
+#### RenderLib: Rendering stuff
 
 # Questions, comments, concerns?
 ### Discord: penguin_minecraf#0
