@@ -26,9 +26,15 @@
 # Features
 ## Commands
 
-#### Config GUI
-- /baladdons to open GUI (doesnt work lol ill fix soon)
-- Aliases: /ba, /bal, /balconfig
+#### Main Command
+- /penguinaddons to open GUI
+- Aliases: /pa, /penguin, /penguinaddon
+- Parameters: 
+-   config: Opens config
+-   gui: Opens GUI config (gui positions)
+-   help: Command help
+-   values: Debug dump
+-   version: Version
 
 #### Lobby Swapping
 #### THIS IS A CHAT MACRO
@@ -37,17 +43,34 @@
 
 
 ## Bal Farming
-#### Bal Status Information
+#### Alerts
 - Spawn Alert
 - HP Alerts
-- Death Alert
+- Death Aler
+#### Bal Information
 - HUD on Bal Status
+- Separate HUD on Bal Coordinates
+- Invincibility Timer
+- Spawning Timer
 
-
-#### TBD
-- Configurable GUI positions
-- Beacon beam and waypoint on Bal's spawn position
-- ESP around the crystal so you do not accidentally click it
+## Powder Mining
+#### Anti Spleef
+- Stops you from mining blocks underneath you
+- You can mine down by mining the block directly underneath you
+#### Chest Highlight
+- Highlights Powder Chests
+- Ability to scan for chests every second if you want (because of laggy client)
+#### Chest Message
+- Compacted Chest Message like soopy (soopy doesn't update)
+- Supports 2x powder (messages are doubled)
+##### Drops Supported
+- Powder (2X Supported)
+- Essence
+- Flawless Gemstones
+- Goblin Eggs
+- Robot Parts
+- Treasurite
+###### Contact me if you want others added!
 
 # Credits
 #### Penguin (P3nguinMinecraft): Me, I made it

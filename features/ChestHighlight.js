@@ -44,9 +44,15 @@ register("renderWorld", () => {
         else lookTarget = null;
         foundChests.forEach(chest => { null;
             if (lookTarget && chest.x == lookTarget.x + 0.5 && chest.y == lookTarget.y && chest.z == lookTarget.z + 0.5){
+<<<<<<< HEAD
                 RenderLib.drawInnerEspBox(chest.x, chest.y, chest.z, 0.875, 0.875, 0, 1, 0, 1, settings.boolChestHighlightPhase); // x y z width height r g b a phase, thats green btw
             }
             else RenderLib.drawInnerEspBox(chest.x, chest.y, chest.z, 0.875, 0.875, 1, 0, 0, 1, settings.boolChestHighlightPhase); // x y z width height r g b a phase, thats red btw
+=======
+                RenderLib.drawInnerEspBox(chest.x, chest.y, chest.z, 0.875, 0.875, 0, 1, 0, 1, true); // x y z width height r g b a phase, thats green btw
+            }
+            else RenderLib.drawInnerEspBox(chest.x, chest.y, chest.z, 0.875, 0.875, 1, 0, 0, 1, true); // x y z width height r g b a phase, thats red btw
+>>>>>>> refs/remotes/origin/main
         });
     }
 });
@@ -64,5 +70,10 @@ register("chat", (message, event) => {
 }).setCriteria("${message}");
 
 register("step", () => {
+<<<<<<< HEAD
     if (settings.intChestScanMethod == 1 && values.inCH == true) findChests(settings.scanRadius);
 }).setDelay(1);
+=======
+    if (settings.boolLoopChestHighlight == true) findChests(settings.scanRadius);
+}).setDelay(1);
+>>>>>>> refs/remotes/origin/main
