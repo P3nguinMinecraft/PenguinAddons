@@ -2,6 +2,7 @@
 # About
 #### ChatTriggers QOL Module for Hypixel Skyblock. This is aimed towards Bal Farming, but also has some nice features that I find helpful in other areas. 
 [ChatTriggers Link](https://www.chattriggers.com/modules/v/PenguinAddons)
+
 [Github Link](https://github.com/P3nguinMinecraft/PenguinAddons)
 
 # Installation
