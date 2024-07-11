@@ -127,7 +127,7 @@ function sendCompactMessage(){
         compactMessage += `&d${gpowder} Gemstone Powder&r`;
     }
 
-    if ((mpowder > 0 || gpowder > 0) && values.doublePowder == true) compactMessage += "&3(2X Powder)&r"
+    if ((mpowder > 0 || gpowder > 0) && values.doublePowder == true) compactMessage += "&3(2x Powder)&r"
   
     compactMessage += "&e. &r";
     if (mpowder > 0 || gpowder > 0 || treasureCount > 0) {
@@ -143,8 +143,7 @@ function sendCompactMessage(){
 
 register("step", () =>{
     if (values.inCH == true){
-        if (TabList.getNames().join("").includes("Mining Event: 2X Powder")){
-            ChatLib.chat("&b[&cPenguin&6Addons&b]&r &32X POWDER!");
+        if (TabList.getNames().join("").includes("2x Powder")){
             values.doublePowder = true;
         }
         else values.doublePowder = false;
