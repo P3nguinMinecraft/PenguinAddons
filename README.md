@@ -54,12 +54,23 @@
 - Spawning Timer
 
 ## Powder Mining
+#### Anti Spleef
+- Stops you from mining blocks underneath you
+- You can mine down by mining the block directly underneath you
 #### Chest Highlight
 - Highlights Powder Chests
 - Ability to scan for chests every second if you want (because of laggy client)
 #### Chest Message
 - Compacted Chest Message like soopy (soopy doesn't update)
-- TBD: More drops to be implemented, 2x powder
+- Supports 2x powder (messages are doubled)
+##### Drops Supported
+- Powder (2X Supported)
+- Essence
+- Flawless Gemstones
+- Goblin Eggs
+- Robot Parts
+- Treasurite
+###### Contact me if you want others added!
 
 # Credits
 #### Penguin (P3nguinMinecraft): Me, I made it
