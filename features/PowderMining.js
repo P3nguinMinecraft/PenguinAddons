@@ -7,18 +7,18 @@ const flawlessRegex = /Flawless (\w+) Gemstone/;
 
 let openCheck = false;
 let deleteMsg = false;
-let mpowder = 0;
-let gpowder = 0;
 let treasures = {};
-
 
 register("chat", (message, event) => {
     let amount = null;
-    if (deleteMsg == true) cancel(event);
     let msg = message.removeFormatting();
-    let matchmsg = regex.exec(msg);
-    if (matchmsg) amount = parseInt(matchmsg[0].split("x")[1].replace(",", ""));
-    else amount = 1;
+
+    if (deleteMsg == true) {
+        cancel(event);
+        let matchmsg = regex.exec(msg);
+        if (matchmsg) amount = parseInt(matchmsg[1].replace(",", ""));
+        else amount = 1;
+    }
 
     if (msg.includes(constants.ChestOpenedMessage1) || msg.includes(constants.ChestOpenedMessage2)){
         openCheck = true;
@@ -29,24 +29,20 @@ register("chat", (message, event) => {
             if (deleteMsg == false){
                 deleteMsg = true;
                 cancel(event);
-                setTimeout(() => {
-                    deleteMsg = false;
-                },100)
             }
             else {
-                deleteMsg = false;
                 sendCompactMessage();
             }
         }
     }
 
     if (msg.includes("Mithril Powder")){
-        mpowder = amount;
-        if (values.doublePowder == true) mpowder *= 2;
+        if (values.doublePowder == true) amount *= 2;
+        treasures["Mithril Powder&r"] = `&a${amount}`;
     }
     else if (msg.includes("Gemstone Powder")){
-        gpowder = amount;
-        if (values.doublePowder == true) gpowder *= 2;
+        if (values.doublePowder == true) amount *= 2;
+        treasures["Gemstone Powder&r"] = `&d${amount}`;
     }
     else if (msg.includes("Essence") && settings.boolCompactEssence == true){
         if (msg.includes("Gold")){
@@ -54,7 +50,7 @@ register("chat", (message, event) => {
         }
         else treasures["Diamond Essence&r"] = `&b${amount}`;
     }
-    else if (msg.includes("Flawlesss") && settings.boolCompactFlawless == true){
+    else if (msg.includes("Flawless") && settings.boolCompactFlawless == true){
         let flawlessMatch = flawlessRegex.exec(msg);
         treasures[`Flawless ${flawlessMatch[1]} Gemstone&r`] = `&5${amount}`;
     }
@@ -103,43 +99,55 @@ register("chat", (message, event) => {
 
 function sendCompactMessage(){
     let compactMessage = "&eYou received &r";
-
+    let hasTreasures = false;
     let treasureCount = 0;
-    for (let treasure in treasures) {
-        compactMessage += `${treasures[treasure]} ${treasure}`;
+
+    // Mithril Powder
+    if (treasures["Mithril Powder&r"]) {
+        compactMessage += `${treasures["Mithril Powder&r"]} Mithril Powder&r`;
         treasureCount++;
-        if (treasureCount < Object.keys(treasures).length) {
-            compactMessage += "&e, &r";
+        hasTreasures = true;
+    }
+
+    // Gemstone Powder
+    if (treasures["Gemstone Powder&r"]) {
+        if (treasureCount > 0 && hasTreasures) {
+            compactMessage += "&e and &r";
+        }
+        compactMessage += `${treasures["Gemstone Powder&r"]} Gemstone Powder&r`;
+        treasureCount++;
+        hasTreasures = true;
+    }
+
+    // Other Crap
+    for (let treasure in treasures) {
+        if (treasure !== "Mithril Powder&r" && treasure !== "Gemstone Powder&r") {
+            if (treasureCount > 0 && hasTreasures) {
+                compactMessage += "&e, &r";
+            }
+            compactMessage += `${treasures[treasure]} ${treasure}`;
+            treasureCount++;
+            hasTreasures = true;
         }
     }
 
-    if (mpowder > 0){
-        if (treasureCount > 0) {
+    // Apply 2x Message
+    if ((treasures["Mithril Powder&r"] || treasures["Gemstone Powder&r"]) && values.doublePowder == true) {
+        if (treasureCount > 0 && hasTreasures) {
             compactMessage += "&e and &r";
         }
-        compactMessage += `&a${mpowder} Mithril Powder&r`;
+        compactMessage += "&3 (2x Powder)&r";
     }
-  
-    if (gpowder > 0){
-        if (treasureCount > 0 || mpowder > 0) {
-            compactMessage += "&e and &r";
-        }
-        compactMessage += `&d${gpowder} Gemstone Powder&r`;
-    }
-  
+
     compactMessage += "&e. &r";
 
-    if ((mpowder > 0 || gpowder > 0) && values.doublePowder == true) compactMessage += "&3(2x Powder)&r"
-    
-    if (mpowder > 0 || gpowder > 0 || treasureCount > 0) {
+    if (hasTreasures) {
         ChatLib.chat(compactMessage);
     }
 
-    // reset values
-    mpowder = 0;
-    gpowder = 0;
+    // Reset values
     treasures = {};
-
+    deleteMsg = false;
 }
 
 register("step", () =>{
@@ -150,4 +158,4 @@ register("step", () =>{
         else values.doublePowder = false;
     }
     values.save();
-}).setDelay("1")
+}).setDelay("1");
