@@ -126,10 +126,11 @@ function sendCompactMessage(){
         }
         compactMessage += `&d${gpowder} Gemstone Powder&r`;
     }
-
-    if ((mpowder > 0 || gpowder > 0) && values.doublePowder == true) compactMessage += "&3(2x Powder)&r"
   
     compactMessage += "&e. &r";
+
+    if ((mpowder > 0 || gpowder > 0) && values.doublePowder == true) compactMessage += "&3(2x Powder)&r"
+    
     if (mpowder > 0 || gpowder > 0 || treasureCount > 0) {
         ChatLib.chat(compactMessage);
     }
