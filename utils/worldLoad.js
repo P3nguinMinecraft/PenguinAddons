@@ -4,10 +4,16 @@ register("worldLoad", () => {
     setTimeout(() => {
         //if (values.area.includes("Crystal Hollows")){ //apparently area is the biomes not "Crystal Hollows"
         if (TabList.getNames().join("").includes("Crystal Hollows")){
-            values.inCH = true
-            ChatLib.chat("&b[&cPenguin&6Addons&b]&r You are in the &eCrystal Hollows&r. &4Bal&r features enabled.")
+            values.inCH = true;
+            ChatLib.chat("&b[&cPenguin&6Addons&b]&r You are in the &eCrystal Hollows&r. &4Bal&r features enabled.");
+            if (TabList.getNames().join("").includes("Mining Event: 2X Powder")){
+                ChatLib.chat("&b[&cPenguin&6Addons&b]&r &32X POWDER!");
+                values.doublePowder = true;
+            }
+            else values.doublePowder = false;
         }
         else values.inCH = false
+        
         values.save();
     },3000)
     if(values.tempswap){

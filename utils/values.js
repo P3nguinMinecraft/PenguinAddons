@@ -1,7 +1,7 @@
 import PogObject from "../../PogData";
 
 const values = new PogObject("PenguinAddons", {
-    version: "0.0.2",
+    version: "0.0.1",
     balStatus: null,
     balFound: null,
     balSpawning1_5Lock: null,
@@ -16,6 +16,7 @@ const values = new PogObject("PenguinAddons", {
     balAlivePosZ: null,
     area: null,
     inCH: null,
+    doublePowder: null,
     tempswap: null,
     balSpawnOverlayToggle: false,
     bal75OverlayToggle: false,

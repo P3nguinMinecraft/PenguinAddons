@@ -15,6 +15,12 @@ import {
     getCategoryComparator: () => (a, b) => {
         const categories = ['Main','Bal','Lobby Swapper','Powder Mining'];
         return categories.indexOf(a.name) - categories.indexOf(b.name);
+    }, 
+    getSubcategoryComparator: () => (a, b) => {
+        const subcategories = ["Bal Info", "Bal Timers", "Bal Alerts", "Powder Chests", "Compact Messages"];
+
+        return subcategories.indexOf(a.getValue()[0].attributesExt.subcategory) -
+            subcategories.indexOf(b.getValue()[0].attributesExt.subcategory);
     },
     getPropertyComparator: () => (a, b) => {
         const names = [
@@ -25,10 +31,11 @@ import {
             "Bal Status HUD Color",
             "Bal Coordinate HUD",
             "Bal Coordinate HUD Color",
+            "Invincibility Timer",
+            "Spawning Timer",
             "Spawn Alert",
             "Spawn Alert Text",
             "Spawn Alert Color",
-            "Invincibility Timer",
             "Timer Color",
             "75 Percent HP Alert",
             "75 Percent Alert Text",
@@ -42,17 +49,20 @@ import {
             "Death Alert",
             "Death Alert Text",
             "Death Alert Color",
-            "Spawning Timer",
             "Lobby Swapper Default Location",
             "Lobby Swapper Default Swap Location",
+            "Anti Spleef",
             "Powder Chest Highlight",
-            "Loop Scan",
+            "Highlight Through Walls",
+            "Scan Method",
             "Scan Radius",
             "Clear Powder Chests",
             "Compact Powder Messages",
+            "Show Essence",
             "Show Flawless Gemstones",
             "Show Goblin Eggs",
-            "Show Robot Parts"
+            "Show Robot Parts",
+            "Show Treasurite"
         ];
         return names.indexOf(a.attributesExt.name) - names.indexOf(b.attributesExt.name);
     }
@@ -74,11 +84,14 @@ class settings{
         this.addDependency("33 Percent Alert Color","33 Percent HP Alert");
         this.addDependency("Death Alert Text","Death Alert");
         this.addDependency("Death Alert Color","Death Alert");
-        this.addDependency("Loop Scan", "Powder Chest Highlight");
+        this.addDependency("Highlight Through Walls", "Powder Chest Highlight");
+        this.addDependency("Scan Method", "Powder Chest Highlight");
         this.addDependency("Scan Radius", "Powder Chest Highlight");
+        this.addDependency("Show Essence", "Compact Powder Messages");
         this.addDependency("Show Flawless Gemstones", "Compact Powder Messages");
         this.addDependency("Show Goblin Eggs", "Compact Powder Messages");
         this.addDependency("Show Robot Parts", "Compact Powder Messages");
+        this.addDependency("Show Treasurite", "Compact Powder Messages");
         this.setCategoryDescription("Main","Home page for PenguinAddons");
         this.setCategoryDescription("Bal", "Stuff about Bal");
         this.setCategoryDescription("Lobby Swapper", "Settings for /lobbyswap Command");
@@ -107,40 +120,62 @@ class settings{
     @SwitchProperty({
         name: "Bal Info HUD",
         description: "Provides useful information about &4Bal &rwhen in the &aCrystal Hollows&r, such as phase and coordinates.",
-        category: "Bal"
+        category: "Bal",
+        subcategory: "Bal Info"
     })
     boolBalHUD = false;
 
     @SwitchProperty({
         name: "Bal Status HUD",
         description: "Tells you if &4Bal &ris spawning, alive (with HP estimates), dead, or unlocated.",
-        category: "Bal"
+        category: "Bal",
+        subcategory: "Bal Info"
     })
     boolBalStatusHUD = false;
 
     @ColorProperty({
         name: "Bal Status HUD Color",
-        category: "Bal"
+        category: "Bal",
+        subcategory: "Bal Info"
     })
     colorBalStatusHUD = Color.RED;
 
     @SwitchProperty({
         name: "Bal Coordinate HUD",
         description: "Shows the coordinates of &4Bal &rwhen it is alive, spawning, or dead.",
-        category: "Bal"
+        category: "Bal",
+        subcategory: "Bal Info"
     })
     boolBalCoordHUD = false;
 
     @ColorProperty({
         name: "Bal Coordinate HUD Color",
-        category: "Bal"
+        category: "Bal",
+        subcategory: "Bal Info"
     })
     colorBalCoordHUD = Color.RED;
 
     @SwitchProperty({
+        name: "Invincibility Timer",
+        description: "Countdown until &4Bal &rcan be damaged.",
+        category: "Bal",
+        subcategory: "Bal Timers"
+    })
+    boolBalSpawnTimer = false;
+
+    @SwitchProperty({
+        name: "Spawning Timer",
+        description: "Countdown until &4Bal &rstarts spawning.",
+        category: "Bal",
+        subcategory: "Bal Timers"
+    })
+    boolBalDeadTimer = false;
+
+    @SwitchProperty({
         name: "Spawn Alert",
         description: "Tells you when &4Bal &rspawns.",
-        category: "Bal"
+        category: "Bal",
+        subcategory: "Bal Alerts"
     })
     boolBalSpawn = false;
     
@@ -148,27 +183,23 @@ class settings{
         name: "Spawn Alert Text",
         decription: "Text that appears when the alert is triggered.",
         placeholder: "Blank = Nothing Appears",
-        category: "Bal"
+        category: "Bal",
+        subcategory: "Bal Alerts"
     })
     txtBalSpawn = "Bal Spawning";
 
     @ColorProperty({
         name: "Spawn Alert Color",
-        category: "Bal"
+        category: "Bal",
+        subcategory: "Bal Alerts"
     })
     colorBalSpawn = Color.RED;
 
     @SwitchProperty({
-        name: "Invincibility Timer",
-        description: "Countdown until &4Bal &rcan be damaged.",
-        category: "Bal"
-    })
-    boolBalSpawnTimer = false;
-
-    @SwitchProperty({
         name: "75 Percent HP Alert",
         description: "Alert when &4Bal &rhits &c75 percent HP (187)",
-        category: "Bal"
+        category: "Bal",
+        subcategory: "Bal Alerts"
     })
     boolBal75 = false;
 
@@ -176,20 +207,23 @@ class settings{
         name: "75 Percent Alert Text",
         decription: "Text that appears when the alert is triggered.",
         placeholder: "Blank = Nothing Appears",
-        category: "Bal"
+        category: "Bal",
+        subcategory: "Bal Alerts"
     })
     txtBal75 = "75% HP";
 
     @ColorProperty({
         name: "75 Percent Alert Color",
-        category: "Bal"
+        category: "Bal",
+        subcategory: "Bal Alerts"
     })
     colorBal75 = Color.RED;
   
     @SwitchProperty({
         name: "50 Percent HP Alert",
         description: "Alert when &4Bal &rhits &c50 percent HP (125)",
-        category: "Bal"
+        category: "Bal",
+        subcategory: "Bal Alerts"
     })
     boolBal50 = false;
 
@@ -197,20 +231,23 @@ class settings{
         name: "50 Percent Alert Text",
         decription: "Text that appears when the alert is triggered.",
         placeholder: "Blank = Nothing Appears",
-        category: "Bal"
+        category: "Bal",
+        subcategory: "Bal Alerts"
     })
     txtBal50 = "50% HP";
 
     @ColorProperty({
         name: "50 Percent Alert Color",
-        category: "Bal"
+        category: "Bal",
+        subcategory: "Bal Alerts"
     })
     colorBal50 = Color.RED;
 
     @SwitchProperty({
         name: "33 Percent HP Alert",
         description: "Alert when &4Bal &rhits &c33 percent HP (66)",
-        category: "Bal"
+        category: "Bal",
+        subcategory: "Bal Alerts"
     })
     boolBal33 = false;
 
@@ -218,20 +255,23 @@ class settings{
         name: "33 Percent Alert Text",
         decription: "Text that appears when the alert is triggered.",
         placeholder: "Blank = Nothing Appears",
-        category: "Bal"
+        category: "Bal",
+        subcategory: "Bal Alerts"
     })
     txtBal33 = "33% HP";
 
     @ColorProperty({
         name: "33 Percent Alert Color",
-        category: "Bal"
+        category: "Bal",
+        subcategory: "Bal Alerts"
     })
     colorBal33 = Color.RED;
 
     @SwitchProperty({
         name: "Death Alert",
         description: "Tells you when &4Bal &rdies.",
-        category: "Bal"
+        category: "Bal",
+        subcategory: "Bal Alerts"
     })
     boolBalDeath = false;
 
@@ -239,22 +279,17 @@ class settings{
         name: "Death Alert Text",
         decription: "Text that appears when the alert is triggered.",
         placeholder: "Blank = Nothing Appears",
-        category: "Bal"
+        category: "Bal",
+        subcategory: "Bal Alerts"
     })
     txtBalDeath = "Bal Died";
 
     @ColorProperty({
         name: "Death Alert Color",
-        category: "Bal"
+        category: "Bal",
+        subcategory: "Bal Alerts"
     })
     colorBalDeath = Color.RED;
-
-    @SwitchProperty({
-        name: "Spawning Timer",
-        description: "Countdown until &4Bal &rstarts spawning.",
-        category: "Bal"
-    })
-    boolBalDeadTimer = false;
 
     @TextProperty({
         name: "Lobby Swapper Default Location",
@@ -271,27 +306,47 @@ class settings{
         category: "Lobby Swapper"
     })
     defaultSwap = "";
+
+    @SwitchProperty({
+        name: "Anti Spleef",
+        description: "Stops you from mining down (good for powder grinding, making tunnels, scatha grinding). You can still mine down if you are right above the block you are mining.",
+        category: "Powder Mining"
+    })
+    boolAntiSpleef = false;
     
     @SwitchProperty({
         name: "Powder Chest Highlight",
         description: "Highlights powder chests when uncovered.",
-        category: "Powder Mining"
+        category: "Powder Mining",
+        subcategory: "Powder Chests"
     })
     boolChestHighlight = false;
 
     @SwitchProperty({
-        name: "Loop Scan",
-        description: "Scans for powder chests every 1 second in addition to scanning when uncovered. Useful when your client is really laggy. More resource-intensive than above.",
-        category: "Powder Mining"
+        name: "Highlight Through Walls",
+        description: "The highlight can be seen through blocks.",
+        category: "Powder Mining",
+        subcategory: "Powder Chests"
     })
-    boolLoopChestHighlight = false;
+    boolChestHighlightPhase = false;
+
+
+    @SelectorProperty({
+        name: "Scan Method",
+        description: "Choose the method to scan for chests. Message Activation will scan for chests when a chest spawns or is opened. Every 1 Second will scan for chests every second while in the Crystal Hollows: Useful for people with high ping and is more resource intensive.",
+        category: "Powder Mining",
+        subcategory: "Powder Chests",
+        options: ["Message Activation", "Every 1 Second"]
+    })
+    intChestScanMethod = 0;
 
     @SliderProperty({
         name: "Scan Radius",
         description: "How far to scan for powder chests.",
         min: 0,
         max: 32,
-        category: "Powder Mining"
+        category: "Powder Mining",
+        subcategory: "Powder Chests"
     })
     scanRadius = 0;
 
@@ -299,6 +354,7 @@ class settings{
         name: "Clear Powder Chests",
         description: "Click here to clear all stored chest data for Powder Chest Highlight.",
         category: "Powder Mining",
+        subcategory: "Powder Chests",
         placeholder: "Click!"
         })
     clearchests(){
@@ -308,30 +364,49 @@ class settings{
     @SwitchProperty({
         name: "Compact Powder Messages",
         description: "Compacts powder messages that appear when you open a chest.",
-        category: "Powder Mining"
+        category: "Powder Mining",
+        subcategory: "Compact Messages"
     })
     boolCompactPowder = false;
 
-    @SwitchProperty({
+    @CheckboxProperty({
+        name: "Show Essence",
+        description: "Shows gold and diamond essence in the compacted message.",
+        category: "Powder Mining",
+        subcategory: "Compact Messages"
+    })
+    boolCompactEssence = false;
+
+    @CheckboxProperty({
         name: "Show Flawless Gemstones",
         description: "Shows flawless gemstones in the compacted message.",
-        category: "Powder Mining"
+        category: "Powder Mining",
+        subcategory: "Compact Messages"
     })
     boolCompactFlawless = false;
 
-    @SwitchProperty({
+    @CheckboxProperty({
         name: "Show Goblin Eggs",
         description: "Shows goblin eggs in the compacted message.",
-        category: "Powder Mining"
+        category: "Powder Mining",
+        subcategory: "Compact Messages"
     })
     boolCompactEgg = false;
 
-    @SwitchProperty({
+    @CheckboxProperty({
         name: "Show Robot Parts",
         description: "Shows robot parts in the compacted message.",
-        category: "Powder Mining"
+        category: "Powder Mining",
+        subcategory: "Compact Messages"
     })
     boolCompactRobot = false;
 
+    @CheckboxProperty({
+        name: "Show Treasurite",
+        description: "Shows treasurite in the compacted message.",
+        category: "Powder Mining",
+        subcategory: "Compact Messages"
+    })
+    boolCompactTreasurite = false;
 }
-export default new settings();
+export default new settings();  

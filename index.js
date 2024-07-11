@@ -14,5 +14,7 @@ console.log("[PenguinAddons] Loading ChestHighlight");
 import "./features/ChestHighlight";
 console.log("[PenguinAddons] Loading PowderMining");
 import "./features/PowderMining";
+console.log("[PenguinAddons] Loading AntiSpleef");
+import "./features/AntiSpleef";
 console.log("[PenguinAddons] Loaded!");
 ChatLib.chat("&b[&cPenguin&6Addons&b]&r Loaded!");
