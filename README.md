@@ -11,7 +11,7 @@
 ##### Main Method
 1. Ensure that you have the latest stable release of ChatTriggers for Forge 1.8.9
 2. Launch Minecraft Forge 1.8.9
-3. Go ingame and run `/ct import BalAddons`
+3. Go ingame and run `/ct import PenguinAddons`
 4. ChatTriggers should automatically reload. If not, run `/ct load` or restart your game.
 
 
