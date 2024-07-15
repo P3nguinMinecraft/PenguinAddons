@@ -13,11 +13,23 @@ import {
 } from "../../Vigilance/index";
 @Vigilant("PenguinAddons","PenguinAddons", {
     getCategoryComparator: () => (a, b) => {
-        const categories = ['Main','Bal','Lobby Swapper','Powder Mining'];
+        const categories = [
+            "Main",
+            "Bal",
+            "Lobby Swapper",
+            "Mining",
+            "Powder Mining"
+        ];
         return categories.indexOf(a.name) - categories.indexOf(b.name);
     }, 
     getSubcategoryComparator: () => (a, b) => {
-        const subcategories = ["Bal Info", "Bal Timers", "Bal Alerts", "Powder Chests", "Compact Messages"];
+        const subcategories = [
+            "Bal Info",
+            "Bal Timers",
+            "Bal Alerts",
+            "Powder Chests",
+            "Compact Messages"
+        ];
 
         return subcategories.indexOf(a.getValue()[0].attributesExt.subcategory) -
             subcategories.indexOf(b.getValue()[0].attributesExt.subcategory);
@@ -52,10 +64,13 @@ import {
             "Lobby Swapper Default Location",
             "Lobby Swapper Default Swap Location",
             "Anti Spleef",
+            "No Mine Chest",
             "Powder Chest Highlight",
             "Highlight Through Walls",
             "Scan Method",
             "Scan Radius",
+            "Auto Open Chest",
+            "Powder Tool Slot",
             "Clear Powder Chests",
             "Compact Powder Messages",
             "Show Essence",
@@ -87,6 +102,8 @@ class settings{
         this.addDependency("Highlight Through Walls", "Powder Chest Highlight");
         this.addDependency("Scan Method", "Powder Chest Highlight");
         this.addDependency("Scan Radius", "Powder Chest Highlight");
+        this.addDependency("Auto Open Chest", "Powder Chest Highlight");
+        this.addDependency("Powder Tool Slot", "Auto Open Chest");
         this.addDependency("Show Essence", "Compact Powder Messages");
         this.addDependency("Show Flawless Gemstones", "Compact Powder Messages");
         this.addDependency("Show Goblin Eggs", "Compact Powder Messages");
@@ -310,9 +327,16 @@ class settings{
     @SwitchProperty({
         name: "Anti Spleef",
         description: "Stops you from mining down (good for powder grinding, making tunnels, scatha grinding). You can still mine down if you are right above the block you are mining.",
-        category: "Powder Mining"
+        category: "Mining"
     })
     boolAntiSpleef = false;
+
+    @SwitchProperty({
+        name: "No Mine Chest",
+        description: "Stops you from mining a chest so you can hold left click and be able to open chests by right clicking.",
+        category: "Powder Mining"
+    })
+    boolNoMineChest = false;
     
     @SwitchProperty({
         name: "Powder Chest Highlight",
@@ -329,7 +353,6 @@ class settings{
         subcategory: "Powder Chests"
     })
     boolChestHighlightPhase = false;
-
 
     @SelectorProperty({
         name: "Scan Method",
@@ -349,6 +372,24 @@ class settings{
         subcategory: "Powder Chests"
     })
     scanRadius = 0;
+    
+    @SwitchProperty({
+        name: "Auto Open Chest",
+        description: "Automatically opens chests when you hover over them. Will try to switch to +Powder Drill when possible. THIS IS A MACRO, USE AT YOUR OWN RISK.",
+        category: "Powder Mining",
+        subcategory: "Powder Chests"
+    })
+    boolAutoOpenChest = false;
+
+    @SliderProperty({
+        name: "Powder Tool Slot",
+        description: "The tool that you use to MINE BLOCKS, from hotbar slots 1 - 8 (9 is SB Menu). THIS IS FOR AUTO OPEN CHEST",
+        min: 1,
+        max: 8,
+        category: "Powder Mining",
+        subcategory: "Powder Chests"
+    })
+    powderToolSlot = 1;
 
     @ButtonProperty({
         name: "Clear Powder Chests",

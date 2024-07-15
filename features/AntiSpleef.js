@@ -1,7 +1,7 @@
 import settings from "../utils/config";
 
 register("hitBlock", (block, event) =>{
-    if (settings.boolAntiSpleef == true){
+    if (settings.boolAntiSpleef){
         let pl = Player.asPlayerMP();
         let x = block.x;
         let y = block.y;

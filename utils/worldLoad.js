@@ -7,7 +7,7 @@ register("worldLoad", () => {
             values.inCH = true;
             console.log("[PenguinAddons] You are in the Crystal Hollows. Bal features enabled.");
             if (TabList.getNames().join("").includes("2x Powder")){
-                ChatLib.chat("&b[&cPenguin&6Addons&b]&r &32x Powder!");
+                ChatLib.chat("&b[&cPenguin&6Addons&b]&r &b2x Powder!");
                 values.doublePowder = true;
             }
             else values.doublePowder = false;
